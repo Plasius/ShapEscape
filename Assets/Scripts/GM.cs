@@ -10,7 +10,7 @@ public class GM : MonoBehaviour {
 
 	void Start ()
 	{
-		Application.targetFrameRate = 100;
+		Application.targetFrameRate = 30;
 		Input.multiTouchEnabled = false;
 
 

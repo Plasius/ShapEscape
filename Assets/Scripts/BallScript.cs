@@ -25,9 +25,10 @@ public class BallScript : MonoBehaviour {
 	}
 
 	void OnMouseDrag(){
-		if (!started)
+		if (!started) {
 			started = true;
-		
+			TimerScript.StartTimer();
+		}
 		transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x,y,10.0f));
 
 	}
