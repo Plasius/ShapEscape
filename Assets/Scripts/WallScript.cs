@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GM : MonoBehaviour {
+public class WallScript : MonoBehaviour {
 
 	public float widthOfCollider = 2f;
 	public float z_axis = 0f;

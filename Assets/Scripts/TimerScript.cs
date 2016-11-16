@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TimerScript : MonoBehaviour {
 
@@ -17,6 +18,19 @@ public class TimerScript : MonoBehaviour {
 	public static void StartTimer(){
 		started = true;
 	}
+
+	public void finish(){
+		started = false;
+
+		IEnumerator wow = waow();
+		StartCoroutine (wow);
+
+	}
+
+	public IEnumerator waow(){
+		yield return new WaitForSeconds(2);
+		SceneManager.LoadScene ("GameScene");
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -25,4 +39,6 @@ public class TimerScript : MonoBehaviour {
 			timerText.text = cTime.ToString ("f2");
 		}
 	}
+
+
 }

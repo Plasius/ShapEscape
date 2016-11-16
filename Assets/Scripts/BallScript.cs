@@ -7,6 +7,7 @@ public class BallScript : MonoBehaviour {
 	float x;
 	float y;
 	bool started;
+	GameObject go;
 
 	void start(){
 		float height = Camera.main.orthographicSize * 2;
@@ -28,7 +29,15 @@ public class BallScript : MonoBehaviour {
 		if (!started) {
 			started = true;
 			TimerScript.StartTimer();
+			GameObject[] go = GameObject.FindGameObjectsWithTag ("Shape");
+			foreach(GameObject g in go){
+				g.GetComponent<ShapeScript> ().shoot ();
+			}
+			GameObject.Find ("Panel").transform.localScale = new Vector3(0, 0, 0);
+
 		}
+
+
 		transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x,y,10.0f));
 
 	}
@@ -38,7 +47,8 @@ public class BallScript : MonoBehaviour {
 	void OnCollisionEnter2D (Collision2D col)
 	{
 		Destroy (this.gameObject);
-		SceneManager.LoadScene ("GameScene");
+		GameObject.Find ("Panel").transform.localScale = new Vector3(1, 1, 1);
+		GameObject.Find ("Text").GetComponent<TimerScript> ().finish ();
 
 	}
 
