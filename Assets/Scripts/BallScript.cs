@@ -7,7 +7,6 @@ public class BallScript : MonoBehaviour {
 	float x;
 	float y;
 	bool started;
-	GameObject go;
 
 	void start(){
 		float height = Camera.main.orthographicSize * 2;
@@ -34,6 +33,7 @@ public class BallScript : MonoBehaviour {
 				g.GetComponent<ShapeScript> ().shoot ();
 			}
 			GameObject.Find ("Panel").transform.localScale = new Vector3(0, 0, 0);
+			GameObject.Find ("Button").transform.localScale = new Vector3 (0,0,0);
 
 		}
 
@@ -48,6 +48,7 @@ public class BallScript : MonoBehaviour {
 	{
 		Destroy (this.gameObject);
 		GameObject.Find ("Panel").transform.localScale = new Vector3(1, 1, 1);
+		GameObject.Find ("Button").transform.localScale = new Vector3 (1,1,1);
 		GameObject.Find ("Text").GetComponent<TimerScript> ().finish ();
 
 	}

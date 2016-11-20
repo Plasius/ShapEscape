@@ -19,6 +19,7 @@ public class ShapeScript : MonoBehaviour {
 	}
 
 	public void shoot(){
+		rb2D = GetComponent<Rigidbody2D> ();
 		rb2D.AddForce (new Vector2(Random.Range(-maximumSpeed, maximumSpeed),Random.Range(-maximumSpeed, maximumSpeed )));
 	}
 
