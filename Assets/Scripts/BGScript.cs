@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class BGScript : MonoBehaviour {
-	public Sprite[] sprites= new Sprite[1];
 	// Use this for initialization
 	void Start () {
-		GetComponent<SpriteRenderer> ().sprite = sprites [Random.Range(0, sprites.Length)];
+		//GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/BGs/background_"+PlayerPrefs.GetString ("BGColor", "wow"), typeof (Sprite))as Sprite;
+		//GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/BGs/bg"+PlayerPrefs.GetString("BGColor", "black"));
 	}
 
 	// Update is called once per frame

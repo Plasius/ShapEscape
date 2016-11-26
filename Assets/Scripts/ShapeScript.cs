@@ -15,7 +15,7 @@ public class ShapeScript : MonoBehaviour {
 
 
 
-		GetComponent<SpriteRenderer> ().sprite = sprites [Random.Range(0, sprites.Length)];
+		//GetComponent<SpriteRenderer> ().sprite = sprites [Random.Range(0, sprites.Length)];
 	}
 
 	public void shoot(){
@@ -26,23 +26,6 @@ public class ShapeScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		rb2D.velocity = rb2D.velocity.normalized * maximumSpeed;
-
-
-		/*
-		float speed = Vector3.Magnitude (rb2D.velocity);  // test current object speed
-		if (speed > maximumSpeed)
-
-		{
-			float brakeSpeed = speed - maximumSpeed;  // calculate the speed decrease
-
-			Vector3 normalisedVelocity = rb2D.velocity.normalized;
-			Vector3 brakeVelocity = normalisedVelocity * brakeSpeed;  // make the brake Vector3 value
-
-			rb2D.AddForce(-brakeVelocity);  // apply opposing brake force
-		}*/
-
-
-
 
 	}
 }

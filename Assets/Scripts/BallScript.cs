@@ -27,6 +27,7 @@ public class BallScript : MonoBehaviour {
 	void OnMouseDrag(){
 		if (!started) {
 			started = true;
+
 			TimerScript.StartTimer();
 			GameObject[] go = GameObject.FindGameObjectsWithTag ("Shape");
 			foreach(GameObject g in go){
