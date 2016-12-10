@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class BallScript : MonoBehaviour {
-
+public class BallCasualScript : MonoBehaviour {
 	float x;
 	float y;
 	bool started;
-
 	void start(){
 		float height = Camera.main.orthographicSize * 2;
 		transform.localScale = Vector3.one * height / 6f;
+
 
 	}
 
@@ -47,6 +47,7 @@ public class BallScript : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
+		
 		Destroy (this.gameObject);
 		GameObject.Find ("Panel").transform.localScale = new Vector3(1, 1, 1);
 		GameObject.Find ("Button").transform.localScale = new Vector3 (1,1,1);

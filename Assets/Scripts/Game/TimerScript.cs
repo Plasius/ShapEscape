@@ -29,7 +29,7 @@ public class TimerScript : MonoBehaviour {
 
 	public IEnumerator waow(){
 		yield return new WaitForSeconds(2);
-		SceneManager.LoadScene (PlayerPrefs.GetString("GameMode"+"Scene","casualScene"));
+		SceneManager.LoadScene (PlayerPrefs.GetString("GameMode","casualScene")+"Scene");
 	}
 	
 	// Update is called once per frame
