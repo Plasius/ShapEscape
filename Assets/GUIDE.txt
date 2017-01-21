@@ -1,0 +1,150 @@
+SCENES: 3
+	MenuScene
+	casualScene
+		//the default mode
+	with_livesScene
+		//default but you get 3 lives
+	
+	
+Resources
+	Sprites
+		Shapes
+			cyan
+				circle_cyan
+				square_cyan
+				triangle_cyan
+			lemon
+				circle_lemon
+				square_lemon
+				triangle_lemon
+			lime
+				circle_lime
+				square_lime
+				triangle_lime
+			magenta
+				circle_magenta
+				square_magenta
+				triangle_magenta
+			vulkan
+				circle_vulkan
+				square_vulkan
+				triangle_vulkan
+		
+		Pucks
+			puck
+	
+	
+Scripts
+	Game
+		MenuScript
+			-contains the names of all the available shapes gamemodes and backgrounds along with pucks in the future, also listens for color changes for objects
+			-attached to MenuScene MenuMaster
+			-takes 3 arrays: gamemode names, shape names, bg names
+			-all of the inputs should be upper case and respect the naming conventiona cross all the files of the same type
+			
+			METHODS:
+				Start() -loads the first entry in all of the arrays
+				ChangeScene() -starts a scene with the selected colors
+				GoMode...() -cycles through the modes
+				GoShapes...() -cycles through the shapes 
+				GoBG...() -cycles through the backgrounds
+				SetShapesToCurrentIndex() -changes the colors for a specific set of shapes
+			
+		TimerScript
+			-keeps track of the timer and refreshes it regularly, also of saves highscores 
+			-attached to Canvas-Text in all of the gamemode scenes
+			-can be started through StartTimer()
+			-cTime is the public variable representing the time
+			
+			METHODS:
+				Start() -makes a connection with Text component
+				StartTimer() -starts the times
+				finish() -stops the timer, saves the score and freezez the screen and invoking waow()
+				waow() -waits 2 seconds before restarting the scene
+				Update() -updates the timer regularly
+		
+		WallScript
+			-makes a wall across the screens borders fit to collide with
+			-attached to Walls gameobject in every scene
+			-sets framerate and multitouch of the app
+			
+			METHODS: 
+				Start() -creates the wall and sets the framerate aswell as the multitouch
+			
+	Gamemode
+		casual
+			casualBallScript
+				-moves the ball and controls the game aswell as looks for collision
+				-attached to Ball object in casual scene
+				-adjusts the puck size, listens for mouse input to start, controls UI and shoots the shapes
+				
+				METHODS:
+					Start() -sets the puck size
+					Update() -keeps track of the mosue position and triggers collision if mouse is released
+					OnMouseDrag() -shoots the shapes, starts the timer, hides the UI
+					OnCollisionEnter2D(Collision2D) -destroys the object puts the UI back and invokes TimerScript.finish();
+				
+			casualScript
+				-sets the color of the shapes and restores highscore, can also take back to the menu
+				-attached to GameMaster in casual scene
+				
+				METHODS:
+					Start() -randomizes the shapes if needed or jsut loads the previously selected ones, invokes RestoreScore()
+					RestoreScore() -restores the score
+					ReturnToMenu() -starts MenuScene
+				
+		lives
+			livesballScript
+				-keeps track of the lives, moves the ball and controls the game aswell as looks for collision, appends lives text
+				-attached to Ball object in lives scene
+				-adjusts the puck size, listens for mouse input to start, controls UI and shoots the shapes
+				
+				METHODS:
+					Start() -sets puck size and textfield up
+					Update() -keeps track of the mosue position and triggers collision if mouse is released
+					OnMouseDrag() -shoots the shapes, starts the timer, hides the UI
+					OnCollisionEnter2D(Collision2D col) -decreases lives, invokes FlashGo, if needed destroys the object puts the UI back and invokes TimerScript.finish();
+					FlashGo() -flashes the shape at a certain interval
+					MyWaiter() -stops the interval and puts the puck collider back
+					
+			livesScript
+				-sets the color of the shapes and restores highscore, can also take back to the menu
+				-attached to GameMaster in casual scene
+				
+				METHODS:
+					Start() -randomizes the shapes if needed or jsut loads the previously selected ones, invokes RestoreScore()
+					RestoreScore() -restores the score
+					ReturnToMenu() -starts MenuScene
+	Shapes
+		ShapeScript
+			-controls size shooting and constraining of the shape
+			-attached to all of the shapes in all of the scenes
+			
+			METHODS:
+				Start() -resizes the shape, and initializes
+				Shoot() -shoots randomly the shape
+				Update() -normalizez the speed
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

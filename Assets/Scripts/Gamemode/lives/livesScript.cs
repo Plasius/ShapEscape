@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class with_livesScript : MonoBehaviour {
+public class livesScript : MonoBehaviour {
 	public string[] shapeNames= new string[1];
 
 	// Use this for initialization
@@ -32,12 +32,6 @@ public class with_livesScript : MonoBehaviour {
 		GameObject.Find("Background").GetComponent<SpriteRenderer>().sprite= Resources.Load<Sprite>("Sprites/BGs/bg"+PlayerPrefs.GetString("BGColor","purple"));
 
 	}
-
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 
 	void RestoreScore(){
 		GameObject.Find("ScoreText").GetComponent<Text>().text="Best: "+ PlayerPrefs.GetFloat (PlayerPrefs.GetString("GameMode")+"Score");

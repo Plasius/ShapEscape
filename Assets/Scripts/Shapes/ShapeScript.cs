@@ -18,7 +18,7 @@ public class ShapeScript : MonoBehaviour {
 		//GetComponent<SpriteRenderer> ().sprite = sprites [Random.Range(0, sprites.Length)];
 	}
 
-	public void shoot(){
+	public void Shoot(){
 		rb2D = GetComponent<Rigidbody2D> ();
 		rb2D.AddForce (new Vector2(Random.Range(-maximumSpeed, maximumSpeed),Random.Range(-maximumSpeed, maximumSpeed )));
 	}

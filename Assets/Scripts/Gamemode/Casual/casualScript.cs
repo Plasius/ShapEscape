@@ -33,10 +33,6 @@ public class casualScript : MonoBehaviour {
 
 	}
 
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void RestoreScore(){
 		GameObject.Find("ScoreText").GetComponent<Text>().text="Best: "+ PlayerPrefs.GetFloat (PlayerPrefs.GetString("GameMode")+"Score");

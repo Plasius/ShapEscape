@@ -30,14 +30,10 @@ public class MenuScript : MonoBehaviour {
 		//shoot
 		GameObject[] go = GameObject.FindGameObjectsWithTag ("Shape");
 		foreach(GameObject g in go){
-			g.GetComponent<ShapeScript> ().shoot ();
+			g.GetComponent<ShapeScript> ().Shoot ();
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 
 	public void ChangeScene(){
 		PlayerPrefs.SetString ("BGColor", bgNames[currentBGIndex].ToLower());
