@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class with_livesScript : MonoBehaviour {
 	public string[] shapeNames= new string[1];
 
 	// Use this for initialization
 	void Start () {
+
+		RestoreScore ();
 
 		string color= PlayerPrefs.GetString("ShapeColor", "neon");
 		if (color == "random") {
@@ -34,6 +37,13 @@ public class with_livesScript : MonoBehaviour {
 	void Update () {
 
 	}
+
+
+	void RestoreScore(){
+		GameObject.Find("ScoreText").GetComponent<Text>().text="Best: "+ PlayerPrefs.GetFloat (PlayerPrefs.GetString("GameMode")+"Score");
+
+	}
+
 
 	public void ReturnToMenu(){
 		SceneManager.LoadScene ("MenuScene");

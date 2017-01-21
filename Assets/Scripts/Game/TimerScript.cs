@@ -8,11 +8,13 @@ public class TimerScript : MonoBehaviour {
 	public float cTime;
 	private Text timerText;
 	static bool started=false;
+	string gamemode;
 
 	// Use this for initialization
 	void Start () {
 		timerText = GetComponent<Text> ();
 		started = false;
+		gamemode= PlayerPrefs.GetString("GameMode");
 	}
 
 	public static void StartTimer(){
@@ -21,6 +23,9 @@ public class TimerScript : MonoBehaviour {
 
 	public void finish(){
 		started = false;
+
+		if(PlayerPrefs.GetFloat(gamemode+"Score") < float.Parse(cTime.ToString("f2")))
+			PlayerPrefs.SetFloat (gamemode+"Score", float.Parse(cTime.ToString("f2")));
 
 		IEnumerator wow = waow();
 		StartCoroutine (wow);

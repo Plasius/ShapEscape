@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class casualScript : MonoBehaviour {
 	public string[] shapeNames= new string[1];
 
 	// Use this for initialization
 	void Start () {
+
+		RestoreScore();
 
 		string color= PlayerPrefs.GetString("ShapeColor", "neon");
 		if (color == "random") {
@@ -33,6 +36,11 @@ public class casualScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	void RestoreScore(){
+		GameObject.Find("ScoreText").GetComponent<Text>().text="Best: "+ PlayerPrefs.GetFloat (PlayerPrefs.GetString("GameMode")+"Score");
+
 	}
 
 	public void ReturnToMenu(){
