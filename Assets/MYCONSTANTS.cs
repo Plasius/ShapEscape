@@ -24,13 +24,13 @@
 
 public static class MYCONSTANTS
 {
-        public const string achievement_achievemt3 = "CgkIkYnyqqoCEAIQAw"; // <GPGSID>
-        public const string achievement_achievemt4 = "CgkIkYnyqqoCEAIQBA"; // <GPGSID>
-        public const string leaderboard_casual = "CgkIkYnyqqoCEAIQBg"; // <GPGSID>
-        public const string achievement_achievemt45 = "CgkIkYnyqqoCEAIQBQ"; // <GPGSID>
-        public const string leaderboard_lives = "CgkIkYnyqqoCEAIQBw"; // <GPGSID>
-        public const string achievement_achievemt1 = "CgkIkYnyqqoCEAIQAQ"; // <GPGSID>
-        public const string achievement_achievemt2 = "CgkIkYnyqqoCEAIQAg"; // <GPGSID>
+        public const string achievement_dasdas = "CgkI2caNgrAdEAIQAQ"; // <GPGSID>
+        public const string leaderboard_casual = "CgkI2caNgrAdEAIQBg"; // <GPGSID>
+        public const string leaderboard_lives = "CgkI2caNgrAdEAIQBw"; // <GPGSID>
+        public const string achievement_dsads = "CgkI2caNgrAdEAIQAA"; // <GPGSID>
+        public const string achievement_adsasd = "CgkI2caNgrAdEAIQAg"; // <GPGSID>
+        public const string achievement_dasads = "CgkI2caNgrAdEAIQAw"; // <GPGSID>
+        public const string achievement_dasdassd = "CgkI2caNgrAdEAIQBA"; // <GPGSID>
 
 }
 

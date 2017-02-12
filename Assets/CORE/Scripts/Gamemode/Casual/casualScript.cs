@@ -9,9 +9,11 @@ public class casualScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		RestoreScore();
+		RestoreHighScore();
 
-		string color= PlayerPrefs.GetString("ShapeColor", "neon");
+		string color= PlayerPrefs.GetString("ShapeColor", "cyan");
+
+
 		if (color == "random") {
 			int size = shapeNames.Length;
 			size--;
@@ -34,12 +36,12 @@ public class casualScript : MonoBehaviour {
 	}
 
 
-	void RestoreScore(){
+	void RestoreHighScore(){
 		GameObject.Find("ScoreText").GetComponent<Text>().text="Best: "+ PlayerPrefs.GetFloat (PlayerPrefs.GetString("GameMode")+"Score");
 
 	}
 
 	public void ReturnToMenu(){
-		SceneManager.LoadScene ("MenuScene");
+		SceneManager.LoadScene ("GameModeScene");
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class casualBallScript : MonoBehaviour {
 	float x;
 	float y;
@@ -35,7 +36,6 @@ public class casualBallScript : MonoBehaviour {
 				g.GetComponent<ShapeScript> ().Shoot ();
 			}
 			GameObject.Find ("Panel").transform.localScale = new Vector3(0, 0, 0);
-			GameObject.Find ("Button").transform.localScale = new Vector3 (0,0,0);
 
 		}
 
@@ -43,7 +43,7 @@ public class casualBallScript : MonoBehaviour {
 		transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x,y,10.0f));
 
 	}
-		
+
 
 
 	void OnCollisionEnter2D (Collision2D col)
@@ -53,6 +53,8 @@ public class casualBallScript : MonoBehaviour {
 		GameObject.Find ("Panel").transform.localScale = new Vector3(1, 1, 1);
 		GameObject.Find ("Button").transform.localScale = new Vector3 (1,1,1);
 		GameObject.Find ("Text").GetComponent<TimerScript> ().finish ();
+
+
 
 	}
 

@@ -3,11 +3,15 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
+
 public class TimerScript : MonoBehaviour {
 
 	public float cTime;
 	private Text timerText;
 	static bool started=false;
+	string ScoreBoardID=null;
 	string gamemode;
 
 	// Use this for initialization
@@ -15,6 +19,7 @@ public class TimerScript : MonoBehaviour {
 		timerText = GetComponent<Text> ();
 		started = false;
 		gamemode= PlayerPrefs.GetString("GameMode");
+		SetScoreBoardID ();
 	}
 
 	public static void StartTimer(){
@@ -27,15 +32,51 @@ public class TimerScript : MonoBehaviour {
 		if(PlayerPrefs.GetFloat(gamemode+"Score") < float.Parse(cTime.ToString("f2")))
 			PlayerPrefs.SetFloat (gamemode+"Score", float.Parse(cTime.ToString("f2")));
 
-		IEnumerator wow = waow();
-		StartCoroutine (wow);
+
+		IEnumerator post = poster();
+		StartCoroutine (poster());
+
+		IEnumerator change = changer();
+		StartCoroutine (changer());
 
 	}
 
-	public IEnumerator waow(){
-		yield return new WaitForSeconds(2);
+
+	void SetScoreBoardID(){
+		switch(gamemode){
+		case "casual":
+			ScoreBoardID="CgkI2caNgrAdEAIQBg";
+			break;
+
+		case "lives":
+			ScoreBoardID= "CgkI2caNgrAdEAIQBw";
+			break;
+
+		}
+
+	}
+
+	public IEnumerator changer(){
+		yield return new WaitForSeconds(3);
 		SceneManager.LoadScene (gamemode+"Scene");
 	}
+
+	public IEnumerator poster(){
+
+		Social.ReportScore ((long)(cTime*100)+1, ScoreBoardID, (bool success) => {
+			// handle success or failure
+		});
+
+		yield return new WaitForSeconds(0);
+	}
+
+
+	public void ShowLeader(){
+		
+		PlayGamesPlatform.Instance.ShowLeaderboardUI (ScoreBoardID);
+
+	}
+
 	
 	// Update is called once per frame
 	void Update () {
