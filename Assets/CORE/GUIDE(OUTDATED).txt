@@ -1,13 +1,21 @@
 SCENES: 3
-	MenuScene
-	casualScene
-		//the default mode
-	with_livesScene
-		//default but you get 3 lives
+	MenuScene: entry point
+	GameModeScene: houses the game mode selector
+
+	casualScene: the default mode
+	with_livesScene: default but you get 3 lives
+
+Animations
+	Menu: for the main menu
+	Gamemode: for the gamemode selector
 	
 	
 Resources
 	Sprites
+		Menu
+			title
+			exitbutton
+
 		Shapes
 			cyan
 				circle_cyan
@@ -36,7 +44,7 @@ Resources
 	
 Scripts
 	Game
-		MenuScript
+		MenuScript: OLD
 			-contains the names of all the available shapes gamemodes and backgrounds along with pucks in the future, also listens for color changes for objects
 			-attached to MenuScene MenuMaster
 			-takes 3 arrays: gamemode names, shape names, bg names
@@ -51,7 +59,32 @@ Scripts
 				GoBG...() -cycles through the backgrounds
 				SetShapesToCurrentIndex() -changes the colors for a specific set of shapes
 				Update() -tries to connect to google play services
-			
+
+		MenuMasterScript
+			-signs in to play games services
+			-called when changing a scene
+			-attached to MenuCanvas
+			-ChangeScene(string scene) ex: "casualScene"
+
+			METHODS:
+				Start() -activates sign in
+				Update() -tries to log in the user
+				ChangeScene(string scene) -waits with MyWaiter and changes the scene accordingly
+				MyWaiter() -waits for a second before changing scene
+
+		GameModeScript
+			-prompts the user to choose game mdoe
+			-deals with animations
+			-starts the scene 
+			-sets shape colors (DEBUG)
+			-ChangeScene(string scenePrefix) ex: "casual"
+
+			METHODS:
+				OnGUI() -starts fist animation
+				ChangeScene(string scenePrefix) -changes the scene after a  second and starts end animation
+				MyWaiter() -waits for a second before loading scene
+
+
 		TimerScript
 			-keeps track of the timer and refreshes it regularly, also of saves highscores 
 			-attached to Canvas-Text in all of the gamemode scenes
@@ -59,10 +92,13 @@ Scripts
 			-cTime is the public variable representing the time
 			
 			METHODS:
-				Start() -makes a connection with Text component
+				Start() -makes a connection with Text component, sets up scoreboard
 				StartTimer() -starts the times
-				finish() -stops the timer, saves the score and freezez the screen and invoking waow()
-				waow() -waits 2 seconds before restarting the scene
+				finish() -stops the timer, saves the score and freezez the screen and invoking post() and change()
+				SetScoreID() -based on a switch determines and applies the gamemode specific leaderboard
+				poster() -submits score to play games
+				changer() -waits 2 seconds before restarting the scene
+				ShowLeader() -opens the scoreboard
 				Update() -updates the timer regularly
 		
 		WallScript

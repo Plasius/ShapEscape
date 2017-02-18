@@ -23,8 +23,6 @@ public class GameModeScript : MonoBehaviour {
 		GetComponent<Animator> ().SetTrigger ("Exiting");
 		scene = s;
 
-		PlayerPrefs.SetString ("BGColor", "purple");
-		PlayerPrefs.SetString ("ShapeColor", "cyan");
 		PlayerPrefs.SetString ("GameMode", s);
 
 		StartCoroutine ("MyWaiter");
