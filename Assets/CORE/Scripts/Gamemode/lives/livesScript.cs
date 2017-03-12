@@ -6,11 +6,9 @@ using UnityEngine.UI;
 public class livesScript : MonoBehaviour {
 	public string[] shapeNames= new string[1];
 
-	// Use this for initialization
+
 	void Start () {
-
 		RestoreScore ();
-
 		string color= PlayerPrefs.GetString("ShapeColor", "neon");
 		if (color == "random") {
 			int size = shapeNames.Length;
@@ -28,7 +26,6 @@ public class livesScript : MonoBehaviour {
 			GameObject.Find ("Circle").GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/"+color+"/circle_"+ color);
 
 		}
-		//background
 		GameObject.Find("Background").GetComponent<SpriteRenderer>().sprite= Resources.Load<Sprite>("Sprites/BGs/bg"+PlayerPrefs.GetString("BGColor","purple"));
 
 	}
@@ -37,9 +34,10 @@ public class livesScript : MonoBehaviour {
 		GameObject.Find("ScoreText").GetComponent<Text>().text="Best: "+ PlayerPrefs.GetFloat (PlayerPrefs.GetString("GameMode")+"Score");
 
 	}
-
-
+		
 	public void ReturnToMenu(){
 		SceneManager.LoadScene ("GameModeScene");
+
 	}
+
 }

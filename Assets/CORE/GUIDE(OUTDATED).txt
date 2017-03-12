@@ -1,10 +1,14 @@
 SCENES: 3
 	MenuScene: entry point
 	GameModeScene: houses the game mode selector
-
+	InventoryScene: unlocks and selects equipment
+	
 	casualScene: the default mode
 	with_livesScene: default but you get 3 lives
+	
+	OldMenuScene: what remains of the old menu
 
+	
 Animations
 	Menu: for the main menu
 	Gamemode: for the gamemode selector
@@ -40,26 +44,16 @@ Resources
 		
 		Pucks
 			puck
-	
+		
+		BGs
+			bgblack
+			bgblue
+			bgpurple
+
 	
 Scripts
 	Game
-		MenuScript: OLD
-			-contains the names of all the available shapes gamemodes and backgrounds along with pucks in the future, also listens for color changes for objects
-			-attached to MenuScene MenuMaster
-			-takes 3 arrays: gamemode names, shape names, bg names
-			-all of the inputs should be upper case and respect the naming conventiona cross all the files of the same type
-			-signs in to the google play services
-			
-			METHODS:
-				Start() -loads the first entry in all of the arrays
-				ChangeScene() -starts a scene with the selected colors
-				GoMode...() -cycles through the modes
-				GoShapes...() -cycles through the shapes 
-				GoBG...() -cycles through the backgrounds
-				SetShapesToCurrentIndex() -changes the colors for a specific set of shapes
-				Update() -tries to connect to google play services
-
+		
 		MenuMasterScript
 			-signs in to play games services
 			-called when changing a scene
@@ -73,46 +67,75 @@ Scripts
 				MyWaiter() -waits for a second before changing scene
 
 		GameModeScript
-			-prompts the user to choose game mdoe
 			-deals with animations
 			-starts the scene 
-			-sets shape colors (DEBUG)
 			-ChangeScene(string scenePrefix) ex: "casual"
 
 			METHODS:
 				OnGUI() -starts fist animation
 				ChangeScene(string scenePrefix) -changes the scene after a  second and starts end animation
 				MyWaiter() -waits for a second before loading scene
-
-
-		TimerScript
-			-keeps track of the timer and refreshes it regularly, also of saves highscores 
-			-attached to Canvas-Text in all of the gamemode scenes
-			-can be started through StartTimer()
-			-cTime is the public variable representing the time
-			
-			METHODS:
-				Start() -makes a connection with Text component, sets up scoreboard
-				StartTimer() -starts the times
-				finish() -stops the timer, saves the score and freezez the screen and invoking post() and change()
-				SetScoreID() -based on a switch determines and applies the gamemode specific leaderboard
-				poster() -submits score to play games
-				changer() -waits 2 seconds before restarting the scene
-				ShowLeader() -opens the scoreboard
-				Update() -updates the timer regularly
 		
-		WallScript
-			-makes a wall across the screens borders fit to collide with
-			-attached to Walls gameobject in every scene
-			-sets framerate and multitouch of the app
+		InventoryScript
+			-controls the gridlayougroup to show sprites in game
+			-attached to ItemPanel
 			
-			METHODS: 
-				Start() -creates the wall and sets the framerate aswell as the multitouch
-
-		ButtonScript
-			-deals with animator
 			METHODS:
-			leave() -makes the leave animation play that is invoket by clicking on the button
+				Start() -initializes and calls ShapeLoader()
+				GoBack() -invoked when going back to menu
+				PuckLoader() -loads the puck list and makes them a listener
+				ShapeLoader() -loads the shape list and makes them a listener
+				BGLoader() -loads the BG list and makes them a listener
+
+		GamePlay
+			TimerScript
+				-keeps track of the timer and refreshes it regularly, also of saves highscores 
+				-attached to Canvas-Text in all of the gamemode scenes
+				-can be started through StartTimer()
+				-cTime is the public variable representing the time
+				
+				METHODS:
+					Start() -makes a connection with Text component, sets up scoreboard
+					StartTimer() -starts the times
+					finish() -stops the timer, saves the score and freezez the screen and invoking post() and change()
+					SetScoreID() -based on a switch determines and applies the gamemode specific leaderboard
+					poster() -submits score to play games
+					changer() -waits 2 seconds before restarting the scene
+					ShowLeader() -opens the scoreboard
+					Update() -updates the timer regularly
+			
+			WallScript
+				-makes a wall across the screens borders fit to collide with
+				-attached to Walls gameobject in every scene
+				-sets framerate and multitouch of the app
+				
+				METHODS: 
+					Start() -creates the wall and sets the framerate aswell as the multitouch
+
+			
+		OLD
+			MenuScript: OLD
+				-contains the names of all the available shapes gamemodes and backgrounds along with pucks in the future, also listens for color changes for objects
+				-attached to MenuScene MenuMaster
+				-takes 3 arrays: gamemode names, shape names, bg names
+				-all of the inputs should be upper case and respect the naming conventiona cross all the files of the same type
+				-signs in to the google play services
+				
+				METHODS:
+					Start() -loads the first entry in all of the arrays
+					ChangeScene() -starts a scene with the selected colors
+					GoMode...() -cycles through the modes
+					GoShapes...() -cycles through the shapes 
+					GoBG...() -cycles through the backgrounds
+					SetShapesToCurrentIndex() -changes the colors for a specific set of shapes
+					Update() -tries to connect to google play services
+			
+			ButtonScript
+				-deals with animator
+				
+				METHODS:
+				leave() -makes the leave animation play that is invoket by clicking on the button
+
 			
 	Gamemode
 		casual
@@ -167,27 +190,3 @@ Scripts
 				Start() -resizes the shape, and initializes
 				Shoot() -shoots randomly the shape
 				Update() -normalizez the speed
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

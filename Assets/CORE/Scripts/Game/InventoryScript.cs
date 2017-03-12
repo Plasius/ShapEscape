@@ -11,72 +11,60 @@ public class InventoryScript : MonoBehaviour {
 	public GridLayoutGroup grid;
 	public GameObject button;
 
-	// Use this for initialization
+
 	void Start () {
 		grid = gameObject.GetComponent<GridLayoutGroup> ();
 		ShapeLoader ();
+
 	}
 
 	public void GoBack(){
 		SceneManager.LoadScene ("MenuScene");
-	}
-
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	void clear(){
-		grid.transform.DetachChildren ();
 
 	}
 
 	public void PuckLoader(){
-		clear ();
+		grid.transform.DetachChildren ();
 		foreach (string color in puckList) {
 			GameObject b = Instantiate (button) as GameObject;
-
 			Transform child = b.transform.GetChild (0);
 			child.GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Pucks/"+color);
-
 			//b.GetComponent<Button> ().onClick.AddListener (() => {});
-
 			b.transform.SetParent (grid.transform, false);
 
-
 		}
+
 	}
 
 	public void ShapeLoader(){
-		clear ();
+		grid.transform.DetachChildren ();
 		foreach (string color in shapeList) {
 			GameObject b = Instantiate (button) as GameObject;
-
 			Transform child = b.transform.GetChild (0);
 			child.GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/" + color + "/circle_" + color);
-
 			b.GetComponent<Button> ().onClick.AddListener (() => {
 				PlayerPrefs.SetString ("ShapeColor", color);
-			});
 
+			});
 			b.transform.SetParent (grid.transform, false);
+
 		}
+
 	}
 
 	public void BGLoader(){
-		clear ();
+		grid.transform.DetachChildren ();
 		foreach (string color in bgList) {
 			GameObject b = Instantiate (button) as GameObject;
-
 			Transform child = b.transform.GetChild (0);
 			child.GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/BGs/bg" + color);
-
 			b.GetComponent<Button> ().onClick.AddListener (() => {
 				PlayerPrefs.SetString ("BGColor", color);
 			});
-
 			b.transform.SetParent (grid.transform, false);
+
 		}
+
 	}
 
 }

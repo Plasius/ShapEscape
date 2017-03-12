@@ -9,45 +9,41 @@ public class livesBallScript : MonoBehaviour {
 	float y;
 	bool started;
 
+
 	void Start(){
 		float height = Camera.main.orthographicSize * 2;
 		transform.localScale = Vector3.one * height / 6f;
-
 		GameObject.Find ("LivesText").GetComponent<Text> ().text = "Lives:  "+lives;
 
 	}
 
-	// Update is called once per frame
 	void Update(){
 		x = Input.mousePosition.x;
 		y = Input.mousePosition.y;
-
 		if ( started && !Input.GetKey (KeyCode.Mouse0)) {
 			lives = 0;
 			OnCollisionEnter2D (new Collision2D());
+
 		}
+
 	}
 
 	void OnMouseDrag(){
 		if (!started) {
 			started = true;
-
 			TimerScript.StartTimer();
 			GameObject[] go = GameObject.FindGameObjectsWithTag ("Shape");
 			foreach(GameObject g in go){
 				g.GetComponent<ShapeScript> ().Shoot ();
+
 			}
 			GameObject.Find ("Panel").transform.localScale = new Vector3(0, 0, 0);
 			GameObject.Find ("Button").transform.localScale = new Vector3 (0,0,0);
 
 		}
-
-
 		transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x,y,10.0f));
 
 	}
-		
-
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
@@ -59,8 +55,8 @@ public class livesBallScript : MonoBehaviour {
 			StartCoroutine ("MyWaiter");
 			return;
 		} else {
-
 			GameObject.Find ("LivesText").GetComponent<Text> ().text = "Lives:  "+0;
+
 		}
 		Destroy (this.gameObject);
 		GameObject.Find ("Panel").transform.localScale = new Vector3(1, 1, 1);
@@ -74,13 +70,14 @@ public class livesBallScript : MonoBehaviour {
 			GetComponent<SpriteRenderer> ().enabled = false;
 		else
 			GetComponent<SpriteRenderer> ().enabled = true;
+		
 	}
 
 	IEnumerator MyWaiter(){
 		yield return new WaitForSeconds (1); 
 		CancelInvoke ("FlashGO");
 		GetComponent<CircleCollider2D> ().enabled = true;
-	}
 
+	}
 
 }

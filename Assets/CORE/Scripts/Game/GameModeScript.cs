@@ -6,31 +6,24 @@ using UnityEngine.SceneManagement;
 
 public class GameModeScript : MonoBehaviour {
 	string scene;
-	// Use this for initialization
-	void Start () {
-	}
 
 	void OnGUI(){
 		GetComponent<Animator> ().SetTrigger ("LoggedIn");
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
-	public void ChangeScene(string s){
+	public void ChangeScene(string scenePrefix){
 		GetComponent<Animator> ().SetTrigger ("Exiting");
-		scene = s;
-
-		PlayerPrefs.SetString ("GameMode", s);
-
+		scene = scenePrefix;
+		PlayerPrefs.SetString ("GameMode", scenePrefix);
 		StartCoroutine ("MyWaiter");
+
 	}
 
 	IEnumerator MyWaiter(){
 		yield return new WaitForSeconds (1);
 		SceneManager.LoadScene (scene+"Scene");
+
 	}
 
 }
