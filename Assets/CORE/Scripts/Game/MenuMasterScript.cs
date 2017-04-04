@@ -2,36 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
 
 public class MenuMasterScript : MonoBehaviour {
 	string scene;
-	bool suc=false;
+	bool auting=false;
 
-
-	void Start () {
-		PlayGamesPlatform.Activate ();
-
+	void Start(){
+		GooglePlayGames.PlayGamesPlatform.Activate ();
 	}
 
-	void Update(){
-		if (!suc) {
-			Social.localUser.Authenticate ((bool success) => {
-				if(success){
-					if(Social.localUser.authenticated){
-						GetComponent<Animator> ().SetTrigger ("LoggedIn");
-						suc=true;
 
-					}
+	void OnGUI(){
+		if(!auting)
+		Social.localUser.Authenticate ((bool success) => {
+				if (success)
 
-				}
-
+					GetComponent<Animator> ().SetTrigger ("LoggedIn");
+				else 
+					auting=false;
+				return;
 			});
-		
-		}
-
+		auting = true;
 	}
 	
 	public void ChangeScene(string s){
@@ -41,10 +36,14 @@ public class MenuMasterScript : MonoBehaviour {
 
 	}
 
+	void Update(){
+	}
+
 	IEnumerator MyWaiter(){
 		yield return new WaitForSeconds (1);
 		SceneManager.LoadScene (scene);
 
 	}
+
 
 }

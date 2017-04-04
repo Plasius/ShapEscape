@@ -34,10 +34,8 @@ public class TimerScript : MonoBehaviour {
 			PlayerPrefs.SetFloat (gamemode+"Score", float.Parse(cTime.ToString("f2")));
 
 
-		IEnumerator post = poster();
 		StartCoroutine (poster());
 
-		IEnumerator change = changer();
 		StartCoroutine (changer());
 
 	}

@@ -1,10 +1,6 @@
 fileFormatVersion: 2
-guid: 98c18af250e2470f9bcb93b54a556073
-labels:
-- gvh
-- gvh_teditor
-- gvh_v1.2.9.0
-timeCreated: 1489417548
+guid: f80305f5b43e1bb42ad04bd55d97c8a4
+timeCreated: 1490447435
 licenseType: Free
 PluginImporter:
   serializedVersion: 1
@@ -13,17 +9,16 @@ PluginImporter:
   isPreloaded: 0
   isOverridable: 0
   platformData:
+    Android:
+      enabled: 1
+      settings: {}
     Any:
       enabled: 0
       settings: {}
     Editor:
-      enabled: 1
-      settings:
-        DefaultValueInitialized: true
-    WindowsStoreApps:
       enabled: 0
       settings:
-        CPU: AnyCPU
+        DefaultValueInitialized: true
   userData: 
   assetBundleName: 
   assetBundleVariant: 

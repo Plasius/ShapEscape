@@ -22,7 +22,7 @@
 ///
 
 
-public static class MYCONSTANTS
+public static class CONSTANTS
 {
         public const string achievement_dasdas = "CgkI2caNgrAdEAIQAQ"; // <GPGSID>
         public const string leaderboard_casual = "CgkI2caNgrAdEAIQBg"; // <GPGSID>
