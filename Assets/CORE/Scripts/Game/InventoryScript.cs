@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+
+using GooglePlayGames;
+using GooglePlayGames.BasicApi.SavedGame;
+using UnityEngine.SocialPlatforms;
  
 [Serializable]
 class PlayerData{
@@ -51,17 +55,17 @@ public class InventoryScript : MonoBehaviour {
 
 	}
 
-
+	/*
 	void saveChanges(){
 
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(Application.persistentDataPath+ "/playerinfo.dat");
 		bf.Serialize (file, data);
 		file.Close ();
-	
+
 		restoreSave ();
 
-	}
+	}*/
 
 
 
@@ -99,7 +103,7 @@ public class InventoryScript : MonoBehaviour {
 					}
 					PlayerPrefs.SetString ("ShapeColor", this.name.Substring(1));
 					b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/" + b.name.Substring(1) + "/circle_" + b.name.Substring(1));
-					saveChanges();
+					//saveChanges();
 				});
 
 			} else {
@@ -135,7 +139,7 @@ public class InventoryScript : MonoBehaviour {
 					PlayerPrefs.SetString ("BGColor", b.name.Substring(1));
 					b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/BGs/bg" + b.name.Substring(1));
 					Debug.Log("showing: "+ b.name.Substring(1));
-					saveChanges();
+					//saveChanges();
 				});
 
 			}else {
@@ -149,5 +153,62 @@ public class InventoryScript : MonoBehaviour {
 		}
 
 	}
+
+
+
+
+
+
+
+	/*
+
+	public void SaveCloud(){
+			ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+		savedGameClient.OpenWithAutomaticConflictResolution("ShapEscapeData", GooglePlayGames.BasicApi.DataSource.ReadCacheOrNetwork,
+			ConflictResolutionStrategy.UseUnmerged, OnSavedGameOpened);
+		
+
+	}
+
+	public void OnSavedGameOpened(SavedGameRequestStatus status, ISavedGameMetadata game) {
+		if (status == SavedGameRequestStatus.Success) {
+			// handle reading or writing of saved game.
+			SaveGame(game, ObjectToByteArray(data));
+		} else {
+			// handle error
+		}
+	}
+
+	void SaveGame (ISavedGameMetadata game, byte[] savedData) {
+		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+
+		SavedGameMetadataUpdate.Builder builder = new SavedGameMetadataUpdate.Builder();
+		SavedGameMetadataUpdate updatedMetadata = builder.Build();
+		savedGameClient.CommitUpdate(game, updatedMetadata, savedData, OnSavedGameWritten);
+	}
+
+	public void OnSavedGameWritten (SavedGameRequestStatus status, ISavedGameMetadata game) {
+		if (status == SavedGameRequestStatus.Success) {
+			// handle reading or writing of saved game.
+		} else {
+			// handle error
+		}
+	}
+
+
+
+
+
+	// Convert an object to a byte array
+	public static byte[] ObjectToByteArray(object obj)
+	{
+		BinaryFormatter bf = new BinaryFormatter();
+		using (var ms = new MemoryStream())
+		{
+			bf.Serialize(ms, obj);
+			return ms.ToArray();
+		}
+	}
+*/
 
 }
