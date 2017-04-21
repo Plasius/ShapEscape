@@ -17,16 +17,18 @@ class PlayerData{
 	public string[] shapeList;
 	public string[] puckList;
 	public string[] bgList;
+	public int money;
 
-	public PlayerData(string[] puck, string[]  shape, string[]  bg){
+	public PlayerData(string[] puck, string[]  shape, string[]  bg, int m){
 		shapeList=shape;
 		puckList=puck;
 		bgList=bg;
+		money = m;
 	}
 }
 
 public class InventoryScript : MonoBehaviour {
-	static PlayerData data=null;
+	static PlayerData d=null;
 	GridLayoutGroup grid;
 	public GameObject button;
 
@@ -42,37 +44,44 @@ public class InventoryScript : MonoBehaviour {
 	}
 
 	void restoreSave(){
-		if (!File.Exists (Application.persistentDataPath + "/playerinfo.dat")) {
-			data = new PlayerData (new string[]  {"Puck"}, new string[]  {"cyan", "lemon", "lime", "Xmagenta", "Yvulkan" }, new string[]   {"black", "Xblue", "Ypurple"});
-			return;
-		}
-
-
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Open(Application.persistentDataPath+ "/playerinfo.dat", FileMode.Open);
-		data =(PlayerData) bf.Deserialize (file);
+		d =(PlayerData) bf.Deserialize (file);
 		file.Close ();
 
 	}
 
-	/*
-	void saveChanges(){
+
+
+
+
+
+
+
+	void SaveChanges(){
 
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(Application.persistentDataPath+ "/playerinfo.dat");
-		bf.Serialize (file, data);
+		bf.Serialize (file, d);
 		file.Close ();
 
 		restoreSave ();
 
-	}*/
+	}
+
+
+
+
+
+
+
 
 
 
 	public void PuckLoader(){
 		grid.transform.DetachChildren ();
-		for(int i=0; i< data.puckList.Length; i++){
-			string color = data.puckList [i];
+		for(int i=0; i< d.puckList.Length; i++){
+			string color = d.puckList [i];
 
 			GameObject b = Instantiate (button) as GameObject;
 			b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Pucks/"+color);
@@ -86,28 +95,28 @@ public class InventoryScript : MonoBehaviour {
 	public void ShapeLoader(){
 		grid.transform.DetachChildren ();
 
-		for(int i=0; i< data.shapeList.Length; i++){
+		for(int i=0; i< d.shapeList.Length; i++){
 
 			GameObject b = Instantiate (button) as GameObject;
-			b.GetComponent<Button> ().name = data.shapeList [i];
+			b.GetComponent<Button> ().name = d.shapeList [i];
 
-			if (data.shapeList[i].StartsWith ("X") || data.shapeList[i].StartsWith ("Y")) {
+			if (d.shapeList[i].StartsWith ("X") || d.shapeList[i].StartsWith ("Y")) {
 				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Menu/currency");
 
 				b.GetComponent<Button>().onClick.AddListener (() => {
 					
-					for(int j=0; j<data.shapeList.Length; j++){
-						if(data.shapeList[j]==b.name){
-							data.shapeList[j]=data.shapeList[j].Substring(1);
+					for(int j=0; j<d.shapeList.Length; j++){
+						if(d.shapeList[j]==b.name){
+							d.shapeList[j]=d.shapeList[j].Substring(1);
 						}
 					}
 					PlayerPrefs.SetString ("ShapeColor", this.name.Substring(1));
 					b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/" + b.name.Substring(1) + "/circle_" + b.name.Substring(1));
-					//saveChanges();
+					SaveCloud();
 				});
 
 			} else {
-				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/" + data.shapeList[i] + "/circle_" + data.shapeList[i]);
+				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/" + d.shapeList[i] + "/circle_" + d.shapeList[i]);
 				b.GetComponent<Button> ().onClick.AddListener (() => {
 					PlayerPrefs.SetString ("ShapeColor", b.name);
 
@@ -122,28 +131,28 @@ public class InventoryScript : MonoBehaviour {
 
 	public void BGLoader(){
 		grid.transform.DetachChildren ();
-		for(int i=0; i< data.bgList.Length; i++){
+		for(int i=0; i< d.bgList.Length; i++){
 			GameObject b = Instantiate (button) as GameObject;
-			b.GetComponent<Button>().name= data.bgList[i];
+			b.GetComponent<Button>().name= d.bgList[i];
 
-			if (data.bgList[i].StartsWith ("X") || data.bgList[i].StartsWith ("Y")) {
+			if (d.bgList[i].StartsWith ("X") || d.bgList[i].StartsWith ("Y")) {
 				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Menu/currency");
 
 				b.GetComponent<Button> ().onClick.AddListener (() => {
-					for(int j=0; j<data.bgList.Length; j++){
-						if(data.bgList[j]==b.name){
-							data.bgList[j]=data.bgList[j].Substring(1);
+					for(int j=0; j<d.bgList.Length; j++){
+						if(d.bgList[j]==b.name){
+							d.bgList[j]=d.bgList[j].Substring(1);
 						}
 					}
 
 					PlayerPrefs.SetString ("BGColor", b.name.Substring(1));
 					b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/BGs/bg" + b.name.Substring(1));
 					Debug.Log("showing: "+ b.name.Substring(1));
-					//saveChanges();
+					SaveCloud();
 				});
 
 			}else {
-				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/BGs/bg" + data.bgList[i]);
+				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/BGs/bg" + d.bgList[i]);
 				b.GetComponent<Button> ().onClick.AddListener (() => {
 					PlayerPrefs.SetString ("BGColor", b.name);
 				});
@@ -160,22 +169,29 @@ public class InventoryScript : MonoBehaviour {
 
 
 
-	/*
 
-	public void SaveCloud(){
-			ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-		savedGameClient.OpenWithAutomaticConflictResolution("ShapEscapeData", GooglePlayGames.BasicApi.DataSource.ReadCacheOrNetwork,
-			ConflictResolutionStrategy.UseUnmerged, OnSavedGameOpened);
-		
 
+
+
+	void SaveCloud(){
+		OpenSavedGame ("ShapEscapeData1");
+	}
+
+	void OpenSavedGame(string filename) {
+		Debug.Log ("opening saved data");
+		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+		savedGameClient.OpenWithAutomaticConflictResolution(filename, GooglePlayGames.BasicApi.DataSource.ReadNetworkOnly,
+			ConflictResolutionStrategy.UseLongestPlaytime, OnSavedGameOpened);
 	}
 
 	public void OnSavedGameOpened(SavedGameRequestStatus status, ISavedGameMetadata game) {
+		Debug.Log ("got status");
 		if (status == SavedGameRequestStatus.Success) {
 			// handle reading or writing of saved game.
-			SaveGame(game, ObjectToByteArray(data));
+				SaveGame (game,ObjectToByteArray(d));	
 		} else {
 			// handle error
+			Debug.Log ("error2");
 		}
 	}
 
@@ -190,13 +206,48 @@ public class InventoryScript : MonoBehaviour {
 	public void OnSavedGameWritten (SavedGameRequestStatus status, ISavedGameMetadata game) {
 		if (status == SavedGameRequestStatus.Success) {
 			// handle reading or writing of saved game.
+			//LoadCloud(); WHY
+			SaveLocal ();
 		} else {
 			// handle error
+			Debug.Log ("error3");
 		}
 	}
 
 
 
+
+	void SaveLocal(){
+		BinaryFormatter bf = new BinaryFormatter();
+		FileStream file = File.Create(Application.persistentDataPath+ "/playerinfo.dat");
+		bf.Serialize (file, d);
+		file.Close ();
+
+		restoreSave ();
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//conver a byte array to an object
+	public static object ByteArrayToObject(byte[] arrBytes){
+		using(var memStream= new MemoryStream()){
+			var binForm = new BinaryFormatter ();
+			memStream.Write (arrBytes, 0, arrBytes.Length);
+			memStream.Seek (0, SeekOrigin.Begin);
+			var obj = binForm.Deserialize (memStream);
+			return obj;
+		}
+	}
 
 
 	// Convert an object to a byte array
@@ -209,6 +260,6 @@ public class InventoryScript : MonoBehaviour {
 			return ms.ToArray();
 		}
 	}
-*/
+
 
 }

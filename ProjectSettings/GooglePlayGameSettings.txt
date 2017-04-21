@@ -1,10 +1,10 @@
 lastUpgrade=00937
 proj.pluginVersion=0.9.37
-proj.AppId=1009321730905
+proj.AppId=1087151220422
 and.BundleId=com.plotberry.shapescape
 proj.classDir=Assets
 proj.ConstantsClassName=MYCONSTANTS
-and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3cstring+name%3d%22app_id%22%3e1009321730905%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22package_name%22%3ecom.plotberry.shapescape%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_dsads%22%3eCgkI2caNgrAdEAIQAA%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_dasdas%22%3eCgkI2caNgrAdEAIQAQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_adsasd%22%3eCgkI2caNgrAdEAIQAg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_dasads%22%3eCgkI2caNgrAdEAIQAw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_dasdassd%22%3eCgkI2caNgrAdEAIQBA%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22leaderboard_casual%22%3eCgkI2caNgrAdEAIQBg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22leaderboard_lives%22%3eCgkI2caNgrAdEAIQBw%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3cstring+name%3d%22app_id%22%3e1087151220422%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22package_name%22%3ecom.plotberry.shapescape%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_dsa%22%3eCgkIxs2M-tEfEAIQAw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_qwe%22%3eCgkIxs2M-tEfEAIQBA%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_hgf%22%3eCgkIxs2M-tEfEAIQBQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_rty%22%3eCgkIxs2M-tEfEAIQBg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_bvc%22%3eCgkIxs2M-tEfEAIQBw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22leaderboard_casual%22%3eCgkIxs2M-tEfEAIQCA%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22leaderboard_lives%22%3eCgkIxs2M-tEfEAIQCQ%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d%0a
 and.ClientId=
 proj.requireGPlus=false
 android.SetupDone=true

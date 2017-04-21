@@ -43,11 +43,11 @@ public class TimerScript : MonoBehaviour {
 	void SetScoreBoardID(){
 		switch(gamemode){
 		case "casual":
-			ScoreBoardID="CgkI2caNgrAdEAIQBg";
+			ScoreBoardID="CgkIxs2M-tEfEAIQCA";
 			break;
 
 		case "lives":
-			ScoreBoardID= "CgkI2caNgrAdEAIQBw";
+			ScoreBoardID= "CgkIxs2M-tEfEAIQCQ";
 			break;
 
 		}
