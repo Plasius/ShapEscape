@@ -35,6 +35,7 @@ public class InventoryScript : MonoBehaviour {
 	void Start () {
 		grid = GetComponent<GridLayoutGroup> ();
 		restoreSave ();
+		PuckLoader ();
 
 	}
 
@@ -104,15 +105,16 @@ public class InventoryScript : MonoBehaviour {
 				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Menu/currency");
 
 				b.GetComponent<Button>().onClick.AddListener (() => {
-					
-					for(int j=0; j<d.shapeList.Length; j++){
-						if(d.shapeList[j]==b.name){
-							d.shapeList[j]=d.shapeList[j].Substring(1);
+					if((b.name.StartsWith("X") && d.money>=10) || (b.name.StartsWith("Y") && d.money>=20)){
+						for(int j=0; j<d.shapeList.Length; j++){
+							if(d.shapeList[j]==b.name){
+								d.shapeList[j]=d.shapeList[j].Substring(1);
+							}
 						}
+						PlayerPrefs.SetString ("ShapeColor", this.name.Substring(1));
+						b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/" + b.name.Substring(1) + "/circle_" + b.name.Substring(1));
+						SaveCloud(b.name.Substring(0,1));
 					}
-					PlayerPrefs.SetString ("ShapeColor", this.name.Substring(1));
-					b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/" + b.name.Substring(1) + "/circle_" + b.name.Substring(1));
-					SaveCloud();
 				});
 
 			} else {
@@ -139,16 +141,18 @@ public class InventoryScript : MonoBehaviour {
 				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Menu/currency");
 
 				b.GetComponent<Button> ().onClick.AddListener (() => {
-					for(int j=0; j<d.bgList.Length; j++){
-						if(d.bgList[j]==b.name){
-							d.bgList[j]=d.bgList[j].Substring(1);
+					if((b.name.StartsWith("X") && d.money>=10) || (b.name.StartsWith("Y") && d.money>=20)){
+						for(int j=0; j<d.bgList.Length; j++){
+							if(d.bgList[j]==b.name){
+								d.bgList[j]=d.bgList[j].Substring(1);
+							}
 						}
-					}
 
-					PlayerPrefs.SetString ("BGColor", b.name.Substring(1));
-					b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/BGs/bg" + b.name.Substring(1));
-					Debug.Log("showing: "+ b.name.Substring(1));
-					SaveCloud();
+						PlayerPrefs.SetString ("BGColor", b.name.Substring(1));
+						b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/BGs/bg" + b.name.Substring(1));
+						Debug.Log("showing: "+ b.name.Substring(1));
+						SaveCloud(b.name.Substring(0,1));
+					}
 				});
 
 			}else {
@@ -173,7 +177,13 @@ public class InventoryScript : MonoBehaviour {
 
 
 
-	void SaveCloud(){
+	void SaveCloud(string type){
+		GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(1,1,1);
+		if (type == "X") {
+			d.money -= 10;
+		}else {
+			d.money -= 20;
+		}
 		OpenSavedGame ("ShapEscapeData1");
 	}
 
@@ -224,6 +234,9 @@ public class InventoryScript : MonoBehaviour {
 		file.Close ();
 
 		restoreSave ();
+		PuckLoader ();
+		GameObject.Find ("CurrencyText").GetComponent<Text>().text=d.money.ToString();
+		GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(0,0,0);
 	}
 
 

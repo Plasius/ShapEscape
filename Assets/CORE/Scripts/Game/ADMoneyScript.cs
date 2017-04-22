@@ -21,7 +21,7 @@ public class ADMoneyScript : MonoBehaviour {
 		Refresh ();
 	}
 
-	void Refresh(){
+	public void Refresh(){
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Open(Application.persistentDataPath+ "/playerinfo.dat", FileMode.Open);
 		d=(PlayerData) bf.Deserialize (file);
@@ -37,8 +37,9 @@ public class ADMoneyScript : MonoBehaviour {
 		OpenSavedGame ("ShapEscapeData1");
 	}
 
-	void launchAD(){
-		
+	public void launchAD(){
+		GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(1,1,1);
+		addMoney ();
 	}
 
 
@@ -78,12 +79,21 @@ public class ADMoneyScript : MonoBehaviour {
 			// handle reading or writing of saved game.
 			//we got the money
 			GetComponent<Text>().text=d.money.ToString();
-
+			SaveLocal ();
 		} else {
 			// handle error
 			Debug.Log ("fail2");
 		}
 	}
+
+	void SaveLocal(){
+		BinaryFormatter bf = new BinaryFormatter();
+		FileStream file = File.Create(Application.persistentDataPath+ "/playerinfo.dat");
+		bf.Serialize (file, d);
+		file.Close ();
+		GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(0,0,0);
+	}
+
 
 	//conver a byte array to an object
 	public static object ByteArrayToObject(byte[] arrBytes){
