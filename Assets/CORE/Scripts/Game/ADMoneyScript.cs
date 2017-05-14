@@ -12,13 +12,27 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SocialPlatforms;
 
+using GoogleMobileAds;
+using GoogleMobileAds.Api;
 
 public class ADMoneyScript : MonoBehaviour {
 	PlayerData d;
 	int money;
+	RewardBasedVideoAd videoAd;
+	string adUnitID= "ca-app-pub-2936915424398213/3936799880";
+
 	// Use this for initialization
 	void Start () {
 		Refresh ();
+
+		videoAd= RewardBasedVideoAd.Instance;
+		videoAd.OnAdRewarded += HandleOnAdRewarded;
+
+	}
+
+	void OnGUI(){
+
+		videoAd.LoadAd (new AdRequest.Builder().Build(), adUnitID);
 	}
 
 	public void Refresh(){
@@ -38,9 +52,15 @@ public class ADMoneyScript : MonoBehaviour {
 	}
 
 	public void launchAD(){
-		GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(1,1,1);
-		addMoney ();
+		if (videoAd.IsLoaded ()) {
+			GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(1,1,1);
+			videoAd.Show ();
+		} else {
+				videoAd.LoadAd (new AdRequest.Builder().Build(), adUnitID);
+		}
 	}
+
+
 
 
 
@@ -95,6 +115,10 @@ public class ADMoneyScript : MonoBehaviour {
 	}
 
 
+
+
+
+
 	//conver a byte array to an object
 	public static object ByteArrayToObject(byte[] arrBytes){
 		using(var memStream= new MemoryStream()){
@@ -117,6 +141,33 @@ public class ADMoneyScript : MonoBehaviour {
 			return ms.ToArray();
 		}
 	}
+
+
+	public void HandleOnAdRewarded(object sender, Reward args){
+		addMoney ();
+		videoAd.LoadAd (new AdRequest.Builder().Build(), adUnitID);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
