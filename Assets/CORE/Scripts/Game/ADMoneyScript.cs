@@ -27,13 +27,14 @@ public class ADMoneyScript : MonoBehaviour {
 
 		videoAd= RewardBasedVideoAd.Instance;
 		videoAd.OnAdRewarded += HandleOnAdRewarded;
+		videoAd.OnAdFailedToLoad += HandleError;
+		videoAd.OnAdOpening += HandleOpening;
+		videoAd.OnAdStarted += HandleStarted;
 
-	}
-
-	void OnGUI(){
 
 		videoAd.LoadAd (new AdRequest.Builder().Build(), adUnitID);
 	}
+
 
 	public void Refresh(){
 		BinaryFormatter bf = new BinaryFormatter ();
@@ -148,9 +149,17 @@ public class ADMoneyScript : MonoBehaviour {
 		videoAd.LoadAd (new AdRequest.Builder().Build(), adUnitID);
 	}
 
+	public void HandleError(object sender, AdFailedToLoadEventArgs args){
+		Debug.Log ("errorAd");
+	}
 
+	public void HandleOpening(object sender, EventArgs args){
+		Debug.Log ("openingAd");
+	}
 
-
+	public void HandleStarted(object sender, EventArgs args){
+		Debug.Log ("startingAd");
+	}
 
 
 

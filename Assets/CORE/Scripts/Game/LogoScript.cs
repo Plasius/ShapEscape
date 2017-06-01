@@ -16,7 +16,6 @@ public class LogoScript : MonoBehaviour {
 
 	string scene;
 	bool auting=false;
-	bool loading=false;
 	PlayerData d;
 
 	void Start(){
@@ -62,9 +61,11 @@ public class LogoScript : MonoBehaviour {
 				LoadGameData (game);
 			else
 				SaveGame (game,ObjectToByteArray(d));	
-				
 			
 		} else {
+
+
+
 			// handle error FIRST LOGIN
 			Debug.Log("RUNNINGFUICK");
 			switch(status){
