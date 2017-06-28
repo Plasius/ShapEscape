@@ -8,8 +8,8 @@ public class ShapeScript : MonoBehaviour {
 
 
 	void Start () {
-		float height = Camera.main.orthographicSize * 2;
-		transform.localScale = Vector3.one * height / 6f;
+		float height = Camera.main.orthographicSize * 2 * Screen.width / Screen.height;
+		transform.localScale = new Vector3(height / 3.0f, height / 3.0f, height / 3.0f);
 		rb2D = GetComponent<Rigidbody2D> ();
 
 	}

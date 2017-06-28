@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MenuMasterScript : MonoBehaviour {
 	string scene;
 
+
 	void OnGUI(){
 
 
