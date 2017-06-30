@@ -151,6 +151,7 @@ public class ADMoneyScript : MonoBehaviour {
 
 	public void HandleError(object sender, AdFailedToLoadEventArgs args){
 		Debug.Log ("errorAd");
+		GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(0,0,0);
 	}
 
 	public void HandleOpening(object sender, EventArgs args){

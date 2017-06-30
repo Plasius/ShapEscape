@@ -29,6 +29,11 @@ class PlayerData{
 
 public class InventoryScript : MonoBehaviour {
 	static PlayerData d=null;
+	static string[] mainPuckList= new string[3] {"neon", "black", "bullet"};
+	static string[] mainShapeList= new string[6] {"cyan", "lemon", "lime", "magenta", "vulkan", "black"};
+	static string[] mainBGList= new string[4] {"black", "blue", "purple", "hills"};
+
+
 	GridLayoutGroup grid;
 	public GameObject button;
 
@@ -40,6 +45,7 @@ public class InventoryScript : MonoBehaviour {
 	}
 
 	public void GoBack(){
+		SaveCloud ();
 		SceneManager.LoadScene ("MenuScene");
 
 	}
@@ -59,19 +65,6 @@ public class InventoryScript : MonoBehaviour {
 
 
 
-	void SaveChanges(){
-
-		BinaryFormatter bf = new BinaryFormatter();
-		FileStream file = File.Create(Application.persistentDataPath+ "/playerinfo.dat");
-		bf.Serialize (file, d);
-		file.Close ();
-
-		restoreSave ();
-
-	}
-
-
-
 
 
 
@@ -85,9 +78,48 @@ public class InventoryScript : MonoBehaviour {
 			string color = d.puckList [i];
 
 			GameObject b = Instantiate (button) as GameObject;
-			b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Pucks/"+color);
-			//b.GetComponent<Button> ().onClick.AddListener (() => {});
+			b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Pucks/"+"puck_"+color);
+			b.GetComponent<Button>().name = color;
+
+			b.GetComponent<Button> ().onClick.AddListener (() => {
+				PlayerPrefs.SetString ("PuckColor", b.GetComponent<Button>().name);
+			});
+
 			b.transform.SetParent (grid.transform, false);
+
+		}
+
+		for(int i=0; i<mainPuckList.Length; i++){
+			int times=0;
+			for (int j = 0; j < d.puckList.Length; j++) {
+				if (mainPuckList [i] == d.puckList [j])
+					times++;
+			}
+
+			if (times == 0) {
+				//creating buyable puck
+				string color=mainPuckList[i];
+
+				GameObject b = Instantiate (button) as GameObject;
+				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Menu/currency");
+				b.GetComponent<Button>().name = color;
+
+				b.GetComponent<Button> ().onClick.AddListener (() => {
+					if(d.money>10){
+						PlayerPrefs.SetString ("PuckColor", b.GetComponent<Button>().name);
+						d.money-=10;
+
+						Array.Resize(ref d.puckList, d.puckList.Length + 1);
+						d.puckList[d.puckList.Length - 1] = color;
+
+						SaveLocal();
+						PuckLoader();
+						SaveCloud();
+					}
+				});
+
+				b.transform.SetParent (grid.transform, false);
+			}
 
 		}
 
@@ -95,74 +127,105 @@ public class InventoryScript : MonoBehaviour {
 
 	public void ShapeLoader(){
 		grid.transform.DetachChildren ();
-
 		for(int i=0; i< d.shapeList.Length; i++){
+			string color = d.shapeList [i];
 
 			GameObject b = Instantiate (button) as GameObject;
-			b.GetComponent<Button> ().name = d.shapeList [i];
+			b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/"+color+"/circle_"+color);
+			b.GetComponent<Button>().name = color;
 
-			if (d.shapeList[i].StartsWith ("X") || d.shapeList[i].StartsWith ("Y")) {
-				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Menu/currency");
-
-				b.GetComponent<Button>().onClick.AddListener (() => {
-					if((b.name.StartsWith("X") && d.money>=10) || (b.name.StartsWith("Y") && d.money>=20)){
-						for(int j=0; j<d.shapeList.Length; j++){
-							if(d.shapeList[j]==b.name){
-								d.shapeList[j]=d.shapeList[j].Substring(1);
-							}
-						}
-						PlayerPrefs.SetString ("ShapeColor", this.name.Substring(1));
-						b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/" + b.name.Substring(1) + "/circle_" + b.name.Substring(1));
-						SaveCloud(b.name.Substring(0,1));
-					}
-				});
-
-			} else {
-				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Shapes/" + d.shapeList[i] + "/circle_" + d.shapeList[i]);
-				b.GetComponent<Button> ().onClick.AddListener (() => {
-					PlayerPrefs.SetString ("ShapeColor", b.name);
-
-				});
-			}
+			b.GetComponent<Button> ().onClick.AddListener (() => {
+				PlayerPrefs.SetString ("ShapeColor", b.GetComponent<Button>().name);
+			});
 
 			b.transform.SetParent (grid.transform, false);
 
 		}
 
+		for(int i=0; i<mainShapeList.Length; i++){
+			int times=0;
+			for (int j = 0; j < d.shapeList.Length; j++) {
+				if (mainShapeList [i] == d.shapeList [j])
+					times++;
+			}
+
+			if (times == 0) {
+				//creating buyable puck
+				string color=mainShapeList[i];
+
+				GameObject b = Instantiate (button) as GameObject;
+				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Menu/currency");
+				b.GetComponent<Button>().name = color;
+
+				b.GetComponent<Button> ().onClick.AddListener (() => {
+					if(d.money>10){
+						PlayerPrefs.SetString ("ShapeColor", b.GetComponent<Button>().name);
+						d.money-=10;
+
+						Array.Resize(ref d.shapeList, d.shapeList.Length + 1);
+						d.shapeList[d.shapeList.Length - 1] = color;
+
+						SaveLocal();
+						ShapeLoader();
+						SaveCloud();
+					}
+				});
+
+				b.transform.SetParent (grid.transform, false);
+			}
+
+		}
 	}
 
 	public void BGLoader(){
 		grid.transform.DetachChildren ();
 		for(int i=0; i< d.bgList.Length; i++){
-			GameObject b = Instantiate (button) as GameObject;
-			b.GetComponent<Button>().name= d.bgList[i];
+			string color = d.bgList [i];
 
-			if (d.bgList[i].StartsWith ("X") || d.bgList[i].StartsWith ("Y")) {
+			GameObject b = Instantiate (button) as GameObject;
+			b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/BGs/bg"+color);
+			b.GetComponent<Button>().name = color;
+
+			b.GetComponent<Button> ().onClick.AddListener (() => {
+				PlayerPrefs.SetString ("BGColor", b.GetComponent<Button>().name);
+			});
+
+			b.transform.SetParent (grid.transform, false);
+
+		}
+
+		for(int i=0; i<mainBGList.Length; i++){
+			int times=0;
+			for (int j = 0; j < d.bgList.Length; j++) {
+				if (mainBGList [i] == d.bgList [j])
+					times++;
+			}
+
+			if (times == 0) {
+				//creating buyable puck
+				string color=mainBGList[i];
+
+				GameObject b = Instantiate (button) as GameObject;
 				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/Menu/currency");
+				b.GetComponent<Button>().name = color;
 
 				b.GetComponent<Button> ().onClick.AddListener (() => {
-					if((b.name.StartsWith("X") && d.money>=10) || (b.name.StartsWith("Y") && d.money>=20)){
-						for(int j=0; j<d.bgList.Length; j++){
-							if(d.bgList[j]==b.name){
-								d.bgList[j]=d.bgList[j].Substring(1);
-							}
-						}
+					if(d.money>10){
+						PlayerPrefs.SetString ("BGColor", b.GetComponent<Button>().name);
+						d.money-=10;
 
-						PlayerPrefs.SetString ("BGColor", b.name.Substring(1));
-						b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/BGs/bg" + b.name.Substring(1));
-						Debug.Log("showing: "+ b.name.Substring(1));
-						SaveCloud(b.name.Substring(0,1));
+						Array.Resize(ref d.bgList, d.bgList.Length + 1);
+						d.bgList[d.bgList.Length - 1] = color;
+
+						SaveLocal();
+						BGLoader();
+						SaveCloud();
 					}
 				});
 
-			}else {
-				b.transform.GetChild(0).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Sprites/BGs/bg" + d.bgList[i]);
-				b.GetComponent<Button> ().onClick.AddListener (() => {
-					PlayerPrefs.SetString ("BGColor", b.name);
-				});
+				b.transform.SetParent (grid.transform, false);
 			}
 
-			b.transform.SetParent (grid.transform, false);
 		}
 
 	}
@@ -177,13 +240,7 @@ public class InventoryScript : MonoBehaviour {
 
 
 
-	void SaveCloud(string type){
-		GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(1,1,1);
-		if (type == "X") {
-			d.money -= 10;
-		}else {
-			d.money -= 20;
-		}
+	void SaveCloud(){
 		OpenSavedGame ("ShapEscapeData1");
 	}
 
@@ -233,10 +290,7 @@ public class InventoryScript : MonoBehaviour {
 		bf.Serialize (file, d);
 		file.Close ();
 
-		restoreSave ();
-		PuckLoader ();
 		GameObject.Find ("CurrencyText").GetComponent<Text>().text=d.money.ToString();
-		GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(0,0,0);
 	}
 
 
@@ -273,6 +327,8 @@ public class InventoryScript : MonoBehaviour {
 			return ms.ToArray();
 		}
 	}
+
+
 
 
 }

@@ -19,7 +19,7 @@ public class LogoScript : MonoBehaviour {
 	PlayerData d;
 
 	void Start(){
-		d = new PlayerData (new string[]  {"Puck"}, new string[]  {"cyan", "lemon", "Xlime", "Xmagenta", "Yvulkan" }, new string[]   {"Xblack", "blue", "Ypurple"}, 69);
+		d = new PlayerData (new string[]  {}, new string[]  {}, new string[]   {}, 69);
 		GooglePlayGames.BasicApi.PlayGamesClientConfiguration config = new GooglePlayGames.BasicApi.PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
 		PlayGamesPlatform.InitializeInstance(config);
 		GooglePlayGames.PlayGamesPlatform.Activate ();
