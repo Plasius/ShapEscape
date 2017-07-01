@@ -13,7 +13,7 @@ using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SocialPlatforms;
  
 [Serializable]
-class PlayerData{
+public class PlayerData{
 	public string[] shapeList;
 	public string[] puckList;
 	public string[] bgList;
@@ -28,14 +28,16 @@ class PlayerData{
 }
 
 public class InventoryScript : MonoBehaviour {
-	static PlayerData d=null;
+	public static PlayerData d=null;
 	static string[] mainPuckList= new string[3] {"neon", "black", "bullet"};
 	static string[] mainShapeList= new string[6] {"cyan", "lemon", "lime", "magenta", "vulkan", "black"};
 	static string[] mainBGList= new string[4] {"black", "blue", "purple", "hills"};
 
 
+
 	GridLayoutGroup grid;
 	public GameObject button;
+	public WindowScript script;
 
 	void Start () {
 		grid = GetComponent<GridLayoutGroup> ();
@@ -82,8 +84,12 @@ public class InventoryScript : MonoBehaviour {
 			b.GetComponent<Button>().name = color;
 
 			b.GetComponent<Button> ().onClick.AddListener (() => {
-				PlayerPrefs.SetString ("PuckColor", b.GetComponent<Button>().name);
+				script.openWindow("puck", color);
 			});
+
+			if (String.Equals (color, PlayerPrefs.GetString ("PuckColor", ""))) {
+				b.GetComponent<Button> ().GetComponent<Image> ().color = Color.red;
+			}
 
 			b.transform.SetParent (grid.transform, false);
 
@@ -105,17 +111,8 @@ public class InventoryScript : MonoBehaviour {
 				b.GetComponent<Button>().name = color;
 
 				b.GetComponent<Button> ().onClick.AddListener (() => {
-					if(d.money>10){
-						PlayerPrefs.SetString ("PuckColor", b.GetComponent<Button>().name);
-						d.money-=10;
-
-						Array.Resize(ref d.puckList, d.puckList.Length + 1);
-						d.puckList[d.puckList.Length - 1] = color;
-
-						SaveLocal();
-						PuckLoader();
-						SaveCloud();
-					}
+					Debug.Log("opening window");
+					script.openWindow("puck", color, 1);
 				});
 
 				b.transform.SetParent (grid.transform, false);
@@ -135,8 +132,12 @@ public class InventoryScript : MonoBehaviour {
 			b.GetComponent<Button>().name = color;
 
 			b.GetComponent<Button> ().onClick.AddListener (() => {
-				PlayerPrefs.SetString ("ShapeColor", b.GetComponent<Button>().name);
+				script.openWindow("shape", color);
 			});
+
+			if (String.Equals (color, PlayerPrefs.GetString ("ShapeColor", ""))) {
+				b.GetComponent<Button> ().GetComponent<Image> ().color = Color.red;
+			}
 
 			b.transform.SetParent (grid.transform, false);
 
@@ -158,17 +159,8 @@ public class InventoryScript : MonoBehaviour {
 				b.GetComponent<Button>().name = color;
 
 				b.GetComponent<Button> ().onClick.AddListener (() => {
-					if(d.money>10){
-						PlayerPrefs.SetString ("ShapeColor", b.GetComponent<Button>().name);
-						d.money-=10;
-
-						Array.Resize(ref d.shapeList, d.shapeList.Length + 1);
-						d.shapeList[d.shapeList.Length - 1] = color;
-
-						SaveLocal();
-						ShapeLoader();
-						SaveCloud();
-					}
+					script.openWindow("shape", color, 1);
+					Debug.Log("op");
 				});
 
 				b.transform.SetParent (grid.transform, false);
@@ -187,8 +179,12 @@ public class InventoryScript : MonoBehaviour {
 			b.GetComponent<Button>().name = color;
 
 			b.GetComponent<Button> ().onClick.AddListener (() => {
-				PlayerPrefs.SetString ("BGColor", b.GetComponent<Button>().name);
+				script.openWindow("bg",color);
 			});
+
+			if (String.Equals (color, PlayerPrefs.GetString ("BGColor", ""))) {
+				b.GetComponent<Button> ().GetComponent<Image> ().color = Color.red;
+			}
 
 			b.transform.SetParent (grid.transform, false);
 
@@ -210,17 +206,8 @@ public class InventoryScript : MonoBehaviour {
 				b.GetComponent<Button>().name = color;
 
 				b.GetComponent<Button> ().onClick.AddListener (() => {
-					if(d.money>10){
-						PlayerPrefs.SetString ("BGColor", b.GetComponent<Button>().name);
-						d.money-=10;
-
-						Array.Resize(ref d.bgList, d.bgList.Length + 1);
-						d.bgList[d.bgList.Length - 1] = color;
-
-						SaveLocal();
-						BGLoader();
-						SaveCloud();
-					}
+					script.openWindow("bg", color, 1);
+					Debug.Log("wow");
 				});
 
 				b.transform.SetParent (grid.transform, false);
@@ -240,7 +227,7 @@ public class InventoryScript : MonoBehaviour {
 
 
 
-	void SaveCloud(){
+	public void SaveCloud(){
 		OpenSavedGame ("ShapEscapeData1");
 	}
 
@@ -284,7 +271,7 @@ public class InventoryScript : MonoBehaviour {
 
 
 
-	void SaveLocal(){
+	public void SaveLocal(){
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(Application.persistentDataPath+ "/playerinfo.dat");
 		bf.Serialize (file, d);
