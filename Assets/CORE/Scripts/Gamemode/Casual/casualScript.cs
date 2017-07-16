@@ -8,7 +8,7 @@ public class casualScript : MonoBehaviour {
 
 	void Start () {
 		RestoreHighScore();
-		string shapeColor= PlayerPrefs.GetString("ShapeColor", "lime");
+		string shapeColor= PlayerPrefs.GetString("ShapeColor", "vulkan");
 		string bgColor=PlayerPrefs.GetString("BGColor", "blue");
 		string puckColor= PlayerPrefs.GetString("PuckColor", "neon");
 

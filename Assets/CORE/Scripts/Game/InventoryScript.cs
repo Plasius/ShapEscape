@@ -29,8 +29,8 @@ public class PlayerData{
 
 public class InventoryScript : MonoBehaviour {
 	public static PlayerData d=null;
-	static string[] mainPuckList= new string[3] {"neon", "black", "bullet"};
-	static string[] mainShapeList= new string[6] {"cyan", "lemon", "lime", "magenta", "vulkan", "black"};
+	static string[] mainPuckList= new string[7] {"neon", "black", "bullet", "fox", "lemon", "moon", "pignose"};
+	static string[] mainShapeList= new string[7] {"cyan", "lemon", "lime", "magenta", "vulkan", "black", "waffle"};
 	static string[] mainBGList= new string[4] {"black", "blue", "purple", "hills"};
 
 
