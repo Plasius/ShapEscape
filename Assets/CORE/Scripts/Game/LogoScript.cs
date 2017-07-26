@@ -19,11 +19,11 @@ public class LogoScript : MonoBehaviour {
 	PlayerData d;
 
 	void Start(){
-		d = new PlayerData (new string[]  {}, new string[]  {}, new string[]   {}, 69);
+		d = new PlayerData (new string[1]  {"white"}, new string[1]  {"white"}, new string[1]   {"black"}, 0);
 		GooglePlayGames.BasicApi.PlayGamesClientConfiguration config = new GooglePlayGames.BasicApi.PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
 		PlayGamesPlatform.InitializeInstance(config);
 		GooglePlayGames.PlayGamesPlatform.Activate ();
-		Debug.Log ("starting");
+		
 	}
 
 
@@ -32,8 +32,8 @@ public class LogoScript : MonoBehaviour {
 		if(!auting)
 			Social.localUser.Authenticate ((bool success) => {
 				if (success){
-					//DEBUG
-					OpenSavedGame ("ShapEscapeData1");
+					
+					OpenSavedGame ("ShapEscapeData3");
 				}else{ 
 					auting=false;
 					return;
@@ -47,14 +47,12 @@ public class LogoScript : MonoBehaviour {
 	bool saving;
 
 	void OpenSavedGame(string filename) {
-		Debug.Log ("opening saved data");
 		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 		savedGameClient.OpenWithAutomaticConflictResolution(filename, GooglePlayGames.BasicApi.DataSource.ReadNetworkOnly,
 			ConflictResolutionStrategy.UseLongestPlaytime, OnSavedGameOpened);
 	}
 
 	public void OnSavedGameOpened(SavedGameRequestStatus status, ISavedGameMetadata game) {
-		Debug.Log ("got status");
 		if (status == SavedGameRequestStatus.Success) {
 			// handle reading or writing of saved game.
 			if(!saving)
@@ -80,8 +78,7 @@ public class LogoScript : MonoBehaviour {
 				break;
 			}
 		}
-
-		Debug.Log (Social.localUser.authenticated);
+        
 	}
 
 	void LoadGameData (ISavedGameMetadata game) {
@@ -96,14 +93,13 @@ public class LogoScript : MonoBehaviour {
 				Debug.Log ("null");
 
 				saving = true;
-				OpenSavedGame ("ShapEscapeData1");
+				OpenSavedGame ("ShapEscapeData3");
 
 				return;
 			}
 
 			
 			d=(PlayerData) ByteArrayToObject(data);
-			Debug.Log ("starting local save");
 			SaveLocal ();
 		} else {
 			// handle error

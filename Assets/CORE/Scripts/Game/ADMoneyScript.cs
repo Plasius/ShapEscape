@@ -15,22 +15,32 @@ using UnityEngine.SocialPlatforms;
 using GoogleMobileAds;
 using GoogleMobileAds.Api;
 
+using UnityEngine.SceneManagement;
+
+
 public class ADMoneyScript : MonoBehaviour {
 	PlayerData d;
 	int money;
 	RewardBasedVideoAd videoAd;
 	string adUnitID= "ca-app-pub-2936915424398213/3936799880";
+    
 
-	// Use this for initialization
-	void Start () {
+    // called second
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Refresh();
+    }
+
+    // Use this for initialization
+    void Start () {
 		Refresh ();
-
-		videoAd= RewardBasedVideoAd.Instance;
+        
+        videoAd = RewardBasedVideoAd.Instance;
 		videoAd.OnAdRewarded += HandleOnAdRewarded;
 		videoAd.OnAdFailedToLoad += HandleError;
 		videoAd.OnAdOpening += HandleOpening;
 		videoAd.OnAdStarted += HandleStarted;
-
+        videoAd.OnAdClosed += HandleClose;
 
 		videoAd.LoadAd (new AdRequest.Builder().Build(), adUnitID);
 	}
@@ -42,17 +52,18 @@ public class ADMoneyScript : MonoBehaviour {
 		d=(PlayerData) bf.Deserialize (file);
 		file.Close ();
 
-		GetComponent<Text>().text=d.money.ToString();
+        GetComponent<Text>().text=d.money.ToString();
 	}
 
 
 
 	void addMoney(){
-		d.money += 10;
-		OpenSavedGame ("ShapEscapeData1");
+		d.money += money;
+		OpenSavedGame ("ShapEscapeData3");
 	}
 
-	public void launchAD(){
+	public void launchAD(int amount){
+        money = amount;
 		if (videoAd.IsLoaded ()) {
 			GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(1,1,1);
 			videoAd.Show ();
@@ -70,14 +81,12 @@ public class ADMoneyScript : MonoBehaviour {
 
 
 	void OpenSavedGame(string filename) {
-		Debug.Log ("opening saved data");
 		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 		savedGameClient.OpenWithAutomaticConflictResolution(filename, GooglePlayGames.BasicApi.DataSource.ReadNetworkOnly,
 			ConflictResolutionStrategy.UseLongestPlaytime, OnSavedGameOpened);
 	}
 
 	public void OnSavedGameOpened(SavedGameRequestStatus status, ISavedGameMetadata game) {
-		Debug.Log ("got status");
 		if (status == SavedGameRequestStatus.Success) {
 			// handle reading or writing of saved game.
 				SaveGame (game,ObjectToByteArray(d));	
@@ -146,7 +155,22 @@ public class ADMoneyScript : MonoBehaviour {
 
 	public void HandleOnAdRewarded(object sender, Reward args){
 		addMoney ();
-		videoAd.LoadAd (new AdRequest.Builder().Build(), adUnitID);
+
+        //achievements
+        Social.ReportProgress("CgkIxs2M-tEfEAIQFA", 100.0f, (bool success) => {
+            // handle success or failure
+        });
+
+        PlayGamesPlatform.Instance.IncrementAchievement("CgkIxs2M-tEfEAIQFQ", 1, (bool success) => {
+            // handle success or failure
+        });
+
+        PlayGamesPlatform.Instance.IncrementAchievement("CgkIxs2M-tEfEAIQFg", 1, (bool success) => {
+            // handle success or failure
+        });
+
+
+        videoAd.LoadAd (new AdRequest.Builder().Build(), adUnitID);
 	}
 
 	public void HandleError(object sender, AdFailedToLoadEventArgs args){
@@ -155,14 +179,14 @@ public class ADMoneyScript : MonoBehaviour {
 	}
 
 	public void HandleOpening(object sender, EventArgs args){
-		Debug.Log ("openingAd");
 	}
 
 	public void HandleStarted(object sender, EventArgs args){
-		Debug.Log ("startingAd");
 	}
 
-
+    public void HandleClose(object sender, EventArgs args) {
+        GameObject.Find("LoadingPanel").transform.localScale = new Vector3(0, 0, 0);
+    }
 
 
 

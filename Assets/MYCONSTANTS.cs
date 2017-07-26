@@ -24,13 +24,27 @@
 
 public static class MYCONSTANTS
 {
-        public const string leaderboard_casual = "CgkIxs2M-tEfEAIQCA"; // <GPGSID>
-        public const string achievement_rty = "CgkIxs2M-tEfEAIQBg"; // <GPGSID>
-        public const string achievement_bvc = "CgkIxs2M-tEfEAIQBw"; // <GPGSID>
-        public const string achievement_dsa = "CgkIxs2M-tEfEAIQAw"; // <GPGSID>
-        public const string achievement_hgf = "CgkIxs2M-tEfEAIQBQ"; // <GPGSID>
+        public const string achievement_over_9000 = "CgkIxs2M-tEfEAIQDA"; // <GPGSID>
+        public const string achievement_much_exploit_such_wow_you_found_me = "CgkIxs2M-tEfEAIQEA"; // <GPGSID>
+        public const string achievement_call_the_police_i_am_going_crazy = "CgkIxs2M-tEfEAIQBw"; // <GPGSID>
+        public const string achievement_going_the_distance = "CgkIxs2M-tEfEAIQDg"; // <GPGSID>
+        public const string achievement_commercial_break = "CgkIxs2M-tEfEAIQFA"; // <GPGSID>
+        public const string achievement_propaganda = "CgkIxs2M-tEfEAIQFg"; // <GPGSID>
+        public const string achievement_better_than_the_devs = "CgkIxs2M-tEfEAIQBg"; // <GPGSID>
         public const string leaderboard_lives = "CgkIxs2M-tEfEAIQCQ"; // <GPGSID>
-        public const string achievement_qwe = "CgkIxs2M-tEfEAIQBA"; // <GPGSID>
+        public const string achievement_the_explorer = "CgkIxs2M-tEfEAIQFw"; // <GPGSID>
+        public const string achievement_getting_a_wardrobe = "CgkIxs2M-tEfEAIQEg"; // <GPGSID>
+        public const string achievement_television = "CgkIxs2M-tEfEAIQFQ"; // <GPGSID>
+        public const string achievement_what_the_devil = "CgkIxs2M-tEfEAIQCw"; // <GPGSID>
+        public const string achievement_this_wasnt_planned = "CgkIxs2M-tEfEAIQEw"; // <GPGSID>
+        public const string achievement_warming_up = "CgkIxs2M-tEfEAIQAw"; // <GPGSID>
+        public const string achievement_we_can_go_higher = "CgkIxs2M-tEfEAIQBA"; // <GPGSID>
+        public const string achievement_this_is_good = "CgkIxs2M-tEfEAIQCg"; // <GPGSID>
+        public const string achievement_fancy_now = "CgkIxs2M-tEfEAIQEQ"; // <GPGSID>
+        public const string achievement_yes_theres_more = "CgkIxs2M-tEfEAIQDw"; // <GPGSID>
+        public const string leaderboard_casual = "CgkIxs2M-tEfEAIQCA"; // <GPGSID>
+        public const string achievement_hardest_30_seconds_of_my_life = "CgkIxs2M-tEfEAIQDQ"; // <GPGSID>
+        public const string achievement_getting_the_hang_of_it = "CgkIxs2M-tEfEAIQBQ"; // <GPGSID>
 
 }
 

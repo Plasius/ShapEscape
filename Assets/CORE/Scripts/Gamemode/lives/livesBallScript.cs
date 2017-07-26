@@ -37,8 +37,8 @@ public class livesBallScript : MonoBehaviour {
 				g.GetComponent<ShapeScript> ().Shoot ();
 
 			}
-			GameObject.Find ("Panel").transform.localScale = new Vector3(0, 0, 0);
-			GameObject.Find ("Button").transform.localScale = new Vector3 (0,0,0);
+			GameObject.Find ("StartPanel").transform.localScale = new Vector3(0, 0, 0);
+			//GameObject.Find ("Button").transform.localScale = new Vector3 (0,0,0);
 
 		}
 		transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x,y,10.0f));
@@ -59,11 +59,15 @@ public class livesBallScript : MonoBehaviour {
 
 		}
 		Destroy (this.gameObject);
-		GameObject.Find ("Panel").transform.localScale = new Vector3(1, 1, 1);
-		GameObject.Find ("Button").transform.localScale = new Vector3 (1,1,1);
-		GameObject.Find ("Text").GetComponent<TimerScript> ().finish ();
+        GameObject.Find("Text").GetComponent<TimerScript>().finish();
+		GameObject.Find ("InfoPanel").transform.localScale = new Vector3 (0,0,0);
 
-	}
+        GameObject.Find("RecentText").GetComponent<Text>().text = "Recent: " + float.Parse(GameObject.Find("Text").GetComponent<TimerScript>().cTime.ToString("f2"));
+        GameObject.Find("BestText").GetComponent<Text>().text = "Best: " + PlayerPrefs.GetFloat(PlayerPrefs.GetString("GameMode") + "Score");
+
+        GameObject.Find("EndPanel").transform.localScale = new Vector3(1, 1, 1);
+
+    }
 
 	void FlashGO(){
 		if(GetComponent<SpriteRenderer> ().enabled)

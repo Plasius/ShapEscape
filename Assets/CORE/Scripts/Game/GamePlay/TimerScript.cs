@@ -10,17 +10,15 @@ public class TimerScript : MonoBehaviour {
 	public float cTime;
 	private Text timerText;
 	static bool started=false;
-	string ScoreBoardID=null;
-	string gamemode;
+    string gamemode;
+    public casualScript script;
+    public livesScript script2;
 
 
-	void Start () {
+    void Start () {
 		timerText = GetComponent<Text> ();
-		started = false;
-		gamemode= PlayerPrefs.GetString("GameMode");
-		SetScoreBoardID ();
-
-	}
+        gamemode = PlayerPrefs.GetString("GameMode");
+    }
 
 	public static void StartTimer(){
 		started = true;
@@ -29,47 +27,17 @@ public class TimerScript : MonoBehaviour {
 
 	public void finish(){
 		started = false;
-
-		if(PlayerPrefs.GetFloat(gamemode+"Score") < float.Parse(cTime.ToString("f2")))
-			PlayerPrefs.SetFloat (gamemode+"Score", float.Parse(cTime.ToString("f2")));
-
-
-		StartCoroutine (poster());
-
-		StartCoroutine (changer());
-
+        switch (gamemode) {
+            case "casual":
+                casualScript.instance.dealWithSession(cTime);
+                break;
+            case "lives":
+                livesScript.instance.dealWithSession(cTime);
+                break;
+        }
+        
 	}
 		
-	void SetScoreBoardID(){
-		switch(gamemode){
-		case "casual":
-			ScoreBoardID="CgkIxs2M-tEfEAIQCA";
-			break;
-
-		case "lives":
-			ScoreBoardID= "CgkIxs2M-tEfEAIQCQ";
-			break;
-
-		}
-
-	}
-
-	public IEnumerator changer(){
-		yield return new WaitForSeconds(3);
-		SceneManager.LoadScene (gamemode+"Scene");
-	}
-
-	public IEnumerator poster(){
-		Social.ReportScore ((long)(cTime*100)+1, ScoreBoardID, (bool success) => {});
-		yield return new WaitForSeconds(0);
-
-	}
-
-
-	public void ShowLeader(){
-		PlayGamesPlatform.Instance.ShowLeaderboardUI (ScoreBoardID);
-
-	}
 		
 	void Update () {
 		if (started) {

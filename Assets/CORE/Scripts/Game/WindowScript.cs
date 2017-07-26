@@ -162,8 +162,9 @@ public class WindowScript : MonoBehaviour {
 				buyEquipButton.GetComponent<Button> ().onClick.AddListener (() => {
 					buyEquipButton.GetComponent<Button>().onClick.RemoveAllListeners ();
 					InventoryScript.d.money -= price;
+                    InventoryScript.d.unlocked++;
 
-					Array.Resize (ref InventoryScript.d.puckList, InventoryScript.d.puckList.Length + 1);
+                    Array.Resize (ref InventoryScript.d.puckList, InventoryScript.d.puckList.Length + 1);
 					InventoryScript.d.puckList [InventoryScript.d.puckList.Length - 1] = name;
 
 					buyEquipText.GetComponent<Text> ().text = "EQUIP";
@@ -210,8 +211,9 @@ public class WindowScript : MonoBehaviour {
 				buyEquipButton.GetComponent<Button> ().onClick.AddListener (() => {
 					buyEquipButton.GetComponent<Button>().onClick.RemoveAllListeners ();
 					InventoryScript.d.money -= price;
+                    InventoryScript.d.unlocked++;
 
-					Array.Resize (ref InventoryScript.d.shapeList, InventoryScript.d.shapeList.Length + 1);
+                    Array.Resize (ref InventoryScript.d.shapeList, InventoryScript.d.shapeList.Length + 1);
 					InventoryScript.d.shapeList [InventoryScript.d.shapeList.Length - 1] = name;
 
 					buyEquipText.GetComponent<Text> ().text = "EQUIP";
@@ -254,6 +256,7 @@ public class WindowScript : MonoBehaviour {
 				buyEquipButton.GetComponent<Button> ().onClick.AddListener (() => {
 					buyEquipButton.GetComponent<Button>().onClick.RemoveAllListeners ();
 					InventoryScript.d.money -= price;
+                    InventoryScript.d.unlocked++;
 
 					Array.Resize (ref InventoryScript.d.bgList, InventoryScript.d.bgList.Length + 1);
 					InventoryScript.d.bgList [InventoryScript.d.bgList.Length - 1] = name;
@@ -275,7 +278,7 @@ public class WindowScript : MonoBehaviour {
 				});
 
 			} else {
-				buyEquipText.GetComponent<Text> ().text="EQUIPPED";
+				buyEquipText.GetComponent<Text> ().text="NO MONEY";
 				buyEquipButton.GetComponent<Button> ().enabled = false;
 			}
 

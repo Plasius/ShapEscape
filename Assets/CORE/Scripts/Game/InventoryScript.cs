@@ -11,13 +11,17 @@ using System.IO;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SocialPlatforms;
- 
+
+
 [Serializable]
 public class PlayerData{
 	public string[] shapeList;
 	public string[] puckList;
 	public string[] bgList;
 	public int money;
+    public int unlocked=3;
+    public int gamesPlayed = 0;
+    public int totalSeconds= 0;
 
 	public PlayerData(string[] puck, string[]  shape, string[]  bg, int m){
 		shapeList=shape;
@@ -29,9 +33,9 @@ public class PlayerData{
 
 public class InventoryScript : MonoBehaviour {
 	public static PlayerData d=null;
-	static string[] mainPuckList= new string[7] {"neon", "black", "bullet", "fox", "lemon", "moon", "pignose"};
-	static string[] mainShapeList= new string[7] {"cyan", "lemon", "lime", "magenta", "vulkan", "black", "waffle"};
-	static string[] mainBGList= new string[4] {"black", "blue", "purple", "hills"};
+	static string[] mainPuckList= new string[8] {"neon", "black", "bullet", "fox", "lemon", "moon", "pignose", "white"};
+	static string[] mainShapeList= new string[3] {"black", "waffle", "white"};
+	static string[] mainBGList= new string[4] {"black", "blue", "purple", "white"};
 
 
 
@@ -60,7 +64,9 @@ public class InventoryScript : MonoBehaviour {
 
 	}
 
-
+    public void showAd() {
+        GameObject.Find("AdMaster").GetComponent<ADMoneyScript>().launchAD(10);
+    }
 
 
 
@@ -112,7 +118,7 @@ public class InventoryScript : MonoBehaviour {
 
 				b.GetComponent<Button> ().onClick.AddListener (() => {
 					Debug.Log("opening window");
-					script.openWindow("puck", color, 1);
+					script.openWindow("puck", color, 10);
 				});
 
 				b.transform.SetParent (grid.transform, false);
@@ -159,7 +165,7 @@ public class InventoryScript : MonoBehaviour {
 				b.GetComponent<Button>().name = color;
 
 				b.GetComponent<Button> ().onClick.AddListener (() => {
-					script.openWindow("shape", color, 1);
+					script.openWindow("shape", color, 20);
 					Debug.Log("op");
 				});
 
@@ -206,7 +212,7 @@ public class InventoryScript : MonoBehaviour {
 				b.GetComponent<Button>().name = color;
 
 				b.GetComponent<Button> ().onClick.AddListener (() => {
-					script.openWindow("bg", color, 1);
+					script.openWindow("bg", color, 30);
 					Debug.Log("wow");
 				});
 
@@ -228,7 +234,7 @@ public class InventoryScript : MonoBehaviour {
 
 
 	public void SaveCloud(){
-		OpenSavedGame ("ShapEscapeData1");
+		OpenSavedGame ("ShapEscapeData3");
 	}
 
 	void OpenSavedGame(string filename) {
@@ -260,7 +266,6 @@ public class InventoryScript : MonoBehaviour {
 	public void OnSavedGameWritten (SavedGameRequestStatus status, ISavedGameMetadata game) {
 		if (status == SavedGameRequestStatus.Success) {
 			// handle reading or writing of saved game.
-			//LoadCloud(); WHY
 			SaveLocal ();
 		} else {
 			// handle error
@@ -278,7 +283,23 @@ public class InventoryScript : MonoBehaviour {
 		file.Close ();
 
 		GameObject.Find ("CurrencyText").GetComponent<Text>().text=d.money.ToString();
-	}
+
+        //achievements
+        Social.ReportProgress("CgkIxs2M-tEfEAIQEQ", 100.0f, (bool success) => {
+            // handle success or failure
+        });
+
+        PlayGamesPlatform.Instance.IncrementAchievement("CgkIxs2M-tEfEAIQEg", 1, (bool success) => {
+            // handle success or failure
+        });
+
+        PlayGamesPlatform.Instance.IncrementAchievement("CgkIxs2M-tEfEAIQEw", 1, (bool success) => {
+            // handle success or failure
+        });
+
+
+
+    }
 
 
 

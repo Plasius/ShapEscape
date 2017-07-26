@@ -27,10 +27,11 @@ public class MenuMasterScript : MonoBehaviour {
 
 	}
 
-
-
-
-
+    public void exitGame() {
+        Application.Quit();
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
+    }
+    
 
 
 
