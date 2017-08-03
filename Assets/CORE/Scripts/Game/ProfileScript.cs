@@ -24,7 +24,7 @@ public class ProfileScript : MonoBehaviour {
         file.Close();
 
         GameObject.Find("GamesPlayedText").GetComponent<Text>().text = "Games played: "+d.gamesPlayed;
-        GameObject.Find("TimeSpentText").GetComponent<Text>().text = "Time spent in-game: " + d.totalSeconds;
+        GameObject.Find("TimeSpentText").GetComponent<Text>().text = "Time spent in-game: " + d.totalSeconds + "s";
         GameObject.Find("UnlockedText").GetComponent<Text>().text = "Unlocked items: " + d.unlocked +"/15";
     }
 	

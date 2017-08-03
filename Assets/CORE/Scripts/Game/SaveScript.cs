@@ -47,6 +47,7 @@ public class SaveScript : MonoBehaviour {
 
 
     void SaveAchievements() {
+        Debug.Log("after game");
         //achievements
         //nr of games
         PlayGamesPlatform.Instance.IncrementAchievement("CgkIxs2M-tEfEAIQAw", 1, (bool success) => {
@@ -134,7 +135,7 @@ public class SaveScript : MonoBehaviour {
 
     public IEnumerator saver()
     {
-        OpenSavedGame("ShapEscapeData3");
+        OpenSavedGame("ShapEscapeData4");
         yield return new WaitForSeconds(0);
 
     }

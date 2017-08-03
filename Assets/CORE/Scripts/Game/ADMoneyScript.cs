@@ -59,10 +59,11 @@ public class ADMoneyScript : MonoBehaviour {
 
 	void addMoney(){
 		d.money += money;
-		OpenSavedGame ("ShapEscapeData3");
+		OpenSavedGame ("ShapEscapeData4");
 	}
 
 	public void launchAD(int amount){
+        
         money = amount;
 		if (videoAd.IsLoaded ()) {
 			GameObject.Find ("LoadingPanel").transform.localScale= new Vector3(1,1,1);
@@ -70,6 +71,7 @@ public class ADMoneyScript : MonoBehaviour {
 		} else {
 				videoAd.LoadAd (new AdRequest.Builder().Build(), adUnitID);
 		}
+        
 	}
 
 
@@ -155,7 +157,7 @@ public class ADMoneyScript : MonoBehaviour {
 
 	public void HandleOnAdRewarded(object sender, Reward args){
 		addMoney ();
-
+        Debug.Log("saving achievements ads");
         //achievements
         Social.ReportProgress("CgkIxs2M-tEfEAIQFA", 100.0f, (bool success) => {
             // handle success or failure

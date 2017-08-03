@@ -33,7 +33,7 @@ public class LogoScript : MonoBehaviour {
 			Social.localUser.Authenticate ((bool success) => {
 				if (success){
 					
-					OpenSavedGame ("ShapEscapeData3");
+					OpenSavedGame ("ShapEscapeData4");
 				}else{ 
 					auting=false;
 					return;
@@ -93,7 +93,7 @@ public class LogoScript : MonoBehaviour {
 				Debug.Log ("null");
 
 				saving = true;
-				OpenSavedGame ("ShapEscapeData3");
+				OpenSavedGame ("ShapEscapeData4");
 
 				return;
 			}

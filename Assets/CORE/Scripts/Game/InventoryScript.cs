@@ -234,7 +234,7 @@ public class InventoryScript : MonoBehaviour {
 
 
 	public void SaveCloud(){
-		OpenSavedGame ("ShapEscapeData3");
+		OpenSavedGame ("ShapEscapeData4");
 	}
 
 	void OpenSavedGame(string filename) {
@@ -267,7 +267,8 @@ public class InventoryScript : MonoBehaviour {
 		if (status == SavedGameRequestStatus.Success) {
 			// handle reading or writing of saved game.
 			SaveLocal ();
-		} else {
+            
+        } else {
 			// handle error
 			Debug.Log ("error3");
 		}
@@ -284,18 +285,8 @@ public class InventoryScript : MonoBehaviour {
 
 		GameObject.Find ("CurrencyText").GetComponent<Text>().text=d.money.ToString();
 
-        //achievements
-        Social.ReportProgress("CgkIxs2M-tEfEAIQEQ", 100.0f, (bool success) => {
-            // handle success or failure
-        });
 
-        PlayGamesPlatform.Instance.IncrementAchievement("CgkIxs2M-tEfEAIQEg", 1, (bool success) => {
-            // handle success or failure
-        });
-
-        PlayGamesPlatform.Instance.IncrementAchievement("CgkIxs2M-tEfEAIQEw", 1, (bool success) => {
-            // handle success or failure
-        });
+       
 
 
 

@@ -8,6 +8,11 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+
+using GooglePlayGames;
+using GooglePlayGames.BasicApi.SavedGame;
+using UnityEngine.SocialPlatforms;
+
 public class WindowScript : MonoBehaviour {
 	public GameObject loadingPanel;
 
@@ -163,7 +168,7 @@ public class WindowScript : MonoBehaviour {
 					buyEquipButton.GetComponent<Button>().onClick.RemoveAllListeners ();
 					InventoryScript.d.money -= price;
                     InventoryScript.d.unlocked++;
-
+                    achieve();
                     Array.Resize (ref InventoryScript.d.puckList, InventoryScript.d.puckList.Length + 1);
 					InventoryScript.d.puckList [InventoryScript.d.puckList.Length - 1] = name;
 
@@ -212,7 +217,7 @@ public class WindowScript : MonoBehaviour {
 					buyEquipButton.GetComponent<Button>().onClick.RemoveAllListeners ();
 					InventoryScript.d.money -= price;
                     InventoryScript.d.unlocked++;
-
+                    achieve();
                     Array.Resize (ref InventoryScript.d.shapeList, InventoryScript.d.shapeList.Length + 1);
 					InventoryScript.d.shapeList [InventoryScript.d.shapeList.Length - 1] = name;
 
@@ -229,8 +234,7 @@ public class WindowScript : MonoBehaviour {
 					script.SaveLocal ();
 					script.ShapeLoader ();
 					script.SaveCloud ();
-
-				});
+                });
 
 			} else {
 				buyEquipText.GetComponent<Text> ().text="NO MONEY";
@@ -257,8 +261,8 @@ public class WindowScript : MonoBehaviour {
 					buyEquipButton.GetComponent<Button>().onClick.RemoveAllListeners ();
 					InventoryScript.d.money -= price;
                     InventoryScript.d.unlocked++;
-
-					Array.Resize (ref InventoryScript.d.bgList, InventoryScript.d.bgList.Length + 1);
+                    achieve();
+                    Array.Resize (ref InventoryScript.d.bgList, InventoryScript.d.bgList.Length + 1);
 					InventoryScript.d.bgList [InventoryScript.d.bgList.Length - 1] = name;
 
 					buyEquipText.GetComponent<Text> ().text = "EQUIP";
@@ -267,15 +271,14 @@ public class WindowScript : MonoBehaviour {
 						buyEquipButton.GetComponent<Button>().onClick.RemoveAllListeners ();
 						PlayerPrefs.SetString ("BGColor", name);
 						script.BGLoader();
-						buyEquipText.GetComponent<Text> ().text = "NO MONEY";
+						buyEquipText.GetComponent<Text> ().text = "EQUIPPED";
 						buyEquipButton.GetComponent<Button> ().enabled = false;
 					});
 
 					script.SaveLocal ();
 					script.BGLoader ();
 					script.SaveCloud ();
-
-				});
+                });
 
 			} else {
 				buyEquipText.GetComponent<Text> ().text="NO MONEY";
@@ -286,6 +289,21 @@ public class WindowScript : MonoBehaviour {
 		}
 	}
 
+    public void achieve() {
+        Debug.Log("saving achievements iventory");
+        //achievements
+        Social.ReportProgress("CgkIxs2M-tEfEAIQEQ", 100.0f, (bool success) => {
+            // handle success or failure
+        });
+
+        PlayGamesPlatform.Instance.IncrementAchievement("CgkIxs2M-tEfEAIQEg", 1, (bool success) => {
+            // handle success or failure
+        });
+
+        PlayGamesPlatform.Instance.IncrementAchievement("CgkIxs2M-tEfEAIQEw", 1, (bool success) => {
+            // handle success or failure
+        });
+    }
 
 	public void closeWindow(){
 		loadingPanel.transform.localScale = new Vector3 (0,0,0);
