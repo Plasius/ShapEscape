@@ -33,6 +33,7 @@ public static class CONSTANTS
         public const string achievement_better_than_the_devs = "CgkIxs2M-tEfEAIQBg"; // <GPGSID>
         public const string leaderboard_lives = "CgkIxs2M-tEfEAIQCQ"; // <GPGSID>
         public const string achievement_the_explorer = "CgkIxs2M-tEfEAIQFw"; // <GPGSID>
+        public const string leaderboard_hardcore = "CgkIxs2M-tEfEAIQGA"; // <GPGSID>
         public const string achievement_getting_a_wardrobe = "CgkIxs2M-tEfEAIQEg"; // <GPGSID>
         public const string achievement_television = "CgkIxs2M-tEfEAIQFQ"; // <GPGSID>
         public const string achievement_what_the_devil = "CgkIxs2M-tEfEAIQCw"; // <GPGSID>

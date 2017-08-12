@@ -10,7 +10,7 @@ using System.IO;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SocialPlatforms;
-
+using UnityEngine.UI;
 
 public class LogoScript : MonoBehaviour {
 
@@ -19,6 +19,8 @@ public class LogoScript : MonoBehaviour {
 	PlayerData d;
 
 	void Start(){
+        
+
 		d = new PlayerData (new string[1]  {"white"}, new string[1]  {"white"}, new string[1]   {"black"}, 0);
 		GooglePlayGames.BasicApi.PlayGamesClientConfiguration config = new GooglePlayGames.BasicApi.PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
 		PlayGamesPlatform.InitializeInstance(config);
@@ -29,13 +31,14 @@ public class LogoScript : MonoBehaviour {
 
 
 	void OnGUI(){
-		if(!auting)
+    if (!auting)
 			Social.localUser.Authenticate ((bool success) => {
 				if (success){
 					
 					OpenSavedGame ("ShapEscapeData4");
 				}else{ 
 					auting=false;
+                    GameObject.Find("WarningText").GetComponent<Text>().transform.localScale=new Vector3(1,1,1);
 					return;
 				}
 			});
@@ -108,8 +111,7 @@ public class LogoScript : MonoBehaviour {
 		}
 	}
 
-
-
+   
 
 
 

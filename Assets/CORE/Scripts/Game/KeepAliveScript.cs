@@ -11,7 +11,13 @@ public class KeepAliveScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+        if (PlayerPrefs.GetInt("Music", 1) != 1)
+        {
+            AudioListener.volume = 0;
+        }
+        else {
+            AudioListener.volume = 1;
+        }
 	}
 	
 	// Update is called once per frame

@@ -25,8 +25,9 @@ public class livesBallScript : MonoBehaviour {
 			OnCollisionEnter2D (new Collision2D());
 
 		}
+        
 
-	}
+    }
 
 	void OnMouseDrag(){
 		if (!started) {

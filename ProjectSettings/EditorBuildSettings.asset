@@ -29,3 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/CORE/Scenes/ProfileScene.unity
     guid: 63cac56bf619e014782db95065c6e81f
+  - enabled: 1
+    path: Assets/CORE/Scenes/hardcoreScene.unity
+    guid: 8c5a8c01b58117443be70863fe4de110

@@ -958,10 +958,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 581363876}
+  - component: {fileID: 581363873}
   - component: {fileID: 581363872}
   - component: {fileID: 581363875}
   - component: {fileID: 581363874}
-  - component: {fileID: 581363873}
   - component: {fileID: 581363877}
   m_Layer: 0
   m_Name: GameMaster
@@ -1633,7 +1633,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1000013842713644, guid: 98ac97c8be533764596b45c6d91503da, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 212000012672841896, guid: 98ac97c8be533764596b45c6d91503da,
         type: 2}
@@ -1843,7 +1843,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1000012323434896, guid: f32933b6883f63645af736b7a3632da4, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4000012836669270, guid: f32933b6883f63645af736b7a3632da4, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -2122,6 +2122,10 @@ Prefab:
         type: 2}
       propertyPath: m_Radius
       value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013950954752, guid: 3eb679dbd9d3fa34db0b7ac7e1a46bd8, type: 2}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3eb679dbd9d3fa34db0b7ac7e1a46bd8, type: 2}

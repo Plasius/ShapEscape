@@ -27,9 +27,16 @@ public class ProfileScript : MonoBehaviour {
         GameObject.Find("TimeSpentText").GetComponent<Text>().text = "Time spent in-game: " + d.totalSeconds + "s";
         GameObject.Find("UnlockedText").GetComponent<Text>().text = "Unlocked items: " + d.unlocked +"/15";
     }
-	
 
-	public void showAchievementsUI(){
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            goBack();
+
+    }
+
+
+    public void showAchievementsUI(){
 		Social.ShowAchievementsUI ();
 		
 	}
@@ -39,6 +46,9 @@ public class ProfileScript : MonoBehaviour {
 		SceneManager.LoadScene ("MenuScene");
 	}
 
+    public void showLeader() {
+        Social.ShowLeaderboardUI();
+    }
 
 
 }

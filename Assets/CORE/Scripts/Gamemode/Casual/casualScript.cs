@@ -103,7 +103,7 @@ public class casualScript : MonoBehaviour {
 
     public void DoubleMoney()
     {
-        adscript.launchAD(10);
+        adscript.launchAD(money);
     }
 
 

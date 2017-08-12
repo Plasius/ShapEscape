@@ -69,6 +69,12 @@ public class InventoryScript : MonoBehaviour {
     }
 
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            GoBack();
+
+    }
 
 
 
@@ -79,8 +85,7 @@ public class InventoryScript : MonoBehaviour {
 
 
 
-
-	public void PuckLoader(){
+    public void PuckLoader(){
 		grid.transform.DetachChildren ();
 		for(int i=0; i< d.puckList.Length; i++){
 			string color = d.puckList [i];

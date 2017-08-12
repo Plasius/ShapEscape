@@ -12,7 +12,14 @@ public class GameModeScript : MonoBehaviour {
 		
 	}
 
-	public void ChangeScene(string scenePrefix){
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            ChangeScene("Menu");
+
+    }
+
+    public void ChangeScene(string scenePrefix){
 		GetComponent<Animator> ().SetTrigger ("Exiting");
 		scene = scenePrefix;
 		PlayerPrefs.SetString ("GameMode", scenePrefix);
